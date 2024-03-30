@@ -9,7 +9,7 @@ function Header() {
             <Socials />
             <div class="current">
                 <div class="workBadge" aria-label="Current">
-                    <span>CURRENTLY</span>
+                    <span>CURRENT</span>
                 </div>
                 <br />
                 <br />

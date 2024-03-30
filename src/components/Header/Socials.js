@@ -81,7 +81,7 @@ function Socials() {
                 >
                     <Tooltip>
                         <span className="tooltiptext">
-                            LinkedIn&nbsp;&nbsp;
+                            Certificates&nbsp;
                             <FontAwesomeIcon
                                 icon={["fas", "arrow-up-right-from-square"]}
                             />
@@ -89,7 +89,7 @@ function Socials() {
                     </Tooltip>
 
                     <div className="placeholder">
-                        <FontAwesomeIcon icon={["fab", "linkedin-in"]} />
+                        <FontAwesomeIcon icon={["fas", "scroll"]} />
                     </div>
                 </a>
 
