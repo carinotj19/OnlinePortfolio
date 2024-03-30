@@ -1,0 +1,157 @@
+.container {
+    text-align: center;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    font-style: normal;
+    font-size: 80px;
+    letter-spacing: -3px;
+    line-height: 1.2em;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.social_buttons {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    place-items: center;
+}
+
+.social_buttons_mobile {
+    display: none;
+}
+
+.top, .bottom {
+    display: flex;
+    margin: auto;
+    gap: 12px;
+}
+
+.top{
+    margin-bottom: 12px;
+}
+
+.button {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0px 0px 0px 2px transparent;
+    -webkit-box-shadow: 0px 0px 0px 2px transparent;
+    -moz-box-shadow: 0px 0px 0px 2px transparent;
+}
+
+.button:hover, .button:focus {
+    outline: none;
+    /* outline-offset: 4px; */
+    background-color: rgba(255, 255, 255, 0.34);
+    box-shadow: 0px 0px 0px 4px white;
+    -webkit-box-shadow: 0px 0px 0px 4px white;
+    -moz-box-shadow: 0px 0px 0px 4px white;
+    opacity: 1;
+    transition: 0.2s ease;
+}
+
+.button:hover .tooltiptext {
+    opacity: 1; /* Show the tooltip when the button is hovered */
+}
+
+.tooltiptext {
+    background-color: white;
+    color: #3d4144;
+    font-family: DM Sans, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 1.2em;
+    padding: 10px 12px;
+    border-radius: 100px;
+    text-decoration: none;
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    width: 90px;
+    z-index: 0;
+    top: 100%;
+    margin-top: 20px;
+    margin-left: -72%;
+    /* visibility: hidden; */
+    opacity: 0;
+}
+
+.placeholder {
+    color: white;
+    font-size: 28px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 70%;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 30px;
+}
+
+.workBadge {
+    margin-top: 70px;
+    color: white;
+    font-family: DM Sans, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    line-height: 1.2em;
+    padding: 10px 10px;
+    margin-bottom: 12px;
+    user-select: none;
+    border: 1px solid white;
+    width: fit-content;
+    display: inline;
+    border-radius: 40px;
+}
+
+.current {
+    margin-top: 50px;
+}
+
+.uc_link{
+    text-decoration: none;
+    color: white;
+}
+
+.uc_link:hover{
+    box-shadow: 0px 2px 0px 0px white;
+    -webkit-box-shadow: 0px 2px 0px 0px white;
+    -moz-box-shadow: 0px 2px 0px 0px white;
+    opacity: 1;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        padding: 50px;
+        margin-top: 100px;
+    }
+
+	.container h1 {
+		font-size: 32px;
+		font-weight: 400;
+		letter-spacing: -1px;
+	}
+
+    .social_buttons {
+        display: none;
+    }
+    
+    .social_buttons_mobile{
+        display: flex;
+        flex-direction: column;
+    }
+}
