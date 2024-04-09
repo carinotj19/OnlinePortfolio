@@ -1,0 +1,47 @@
+.scroll-indicator {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text {
+    color: white;
+    font-size: 28px;
+}
+.icon {
+    color: white;
+    font-size: 28px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Example animation */
+.icon {
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .scroll-indicator {
+        margin-top: 100px;
+    }
+
+    .icon {
+        color: white;
+        font-size: 28px;
+    }
+
+    .text {
+        color: white;
+        font-size: 21px;
+    }
+}
