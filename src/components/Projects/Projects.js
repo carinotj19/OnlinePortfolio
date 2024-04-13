@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Scroll from "../Scroll/Scroll";
 
 // Import all images from the Certificates folder dynamically
 function importAll(r) {
@@ -34,8 +33,6 @@ function Projects() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-
-            <Scroll text="Certificates" />
         </div>
     );
 }

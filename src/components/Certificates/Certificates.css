@@ -1,0 +1,12 @@
+.slide-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slide-image {
+    width: 500px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed */
+    object-fit: fill; /* Ensure the entire image is visible within the specified dimensions */
+}

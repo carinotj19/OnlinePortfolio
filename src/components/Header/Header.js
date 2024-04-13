@@ -28,7 +28,7 @@ function Header() {
                     </a>
                 </h3>
             </div>
-            <Scroll text="Projects" />
+            <Scroll text="Certificates" />
         </div>
     );
 }

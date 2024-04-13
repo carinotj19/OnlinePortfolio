@@ -12,10 +12,10 @@ function App() {
                     <Header />
                 </SectionContainer>
                 <SectionContainer>
-                    <Projects/>
+                    <Certificates/>
                 </SectionContainer>
                 <SectionContainer>
-                    <Certificates/>
+                    <Projects/>
                 </SectionContainer>
             </ReactPageScroller>
         </>
