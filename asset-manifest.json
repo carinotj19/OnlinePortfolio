@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/OnlinePortfolio/static/css/main.cfc6710c.css",
+    "main.js": "/OnlinePortfolio/static/js/main.852c7e2e.js",
+    "static/js/453.41811d64.chunk.js": "/OnlinePortfolio/static/js/453.41811d64.chunk.js",
+    "static/media/Untitled design.png": "/OnlinePortfolio/static/media/Untitled design.f58198cea06b68e2fb8f.png",
+    "static/media/Coursera Meta Course.png": "/OnlinePortfolio/static/media/Coursera Meta Course.832da6e8639ec1b874a0.png",
+    "static/media/GDP Baguio.png": "/OnlinePortfolio/static/media/GDP Baguio.82dab6b36c3e09a19e23.png",
+    "index.html": "/OnlinePortfolio/index.html",
+    "main.cfc6710c.css.map": "/OnlinePortfolio/static/css/main.cfc6710c.css.map",
+    "main.852c7e2e.js.map": "/OnlinePortfolio/static/js/main.852c7e2e.js.map",
+    "453.41811d64.chunk.js.map": "/OnlinePortfolio/static/js/453.41811d64.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cfc6710c.css",
+    "static/js/main.852c7e2e.js"
+  ]
+}
