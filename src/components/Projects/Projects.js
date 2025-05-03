@@ -1,38 +1,22 @@
-import React from "react";
-import { Navigation, Pagination, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
-// Import all images from the Certificates folder dynamically
-function importAll(r) {
-    return r.keys().map(r);
-}
-const projectImages = importAll(
-    require.context("../../assets/Projects", false, /\.(png|jpe?g|svg)$/)
-);
+import React, { useMemo } from "react";
+import ImageCarousel from "../UI/ImageCarousel/ImageCarousel";
 
 function Projects() {
+    // Import all images from the Projects folder dynamically
+    const projectImages = useMemo(() => {
+        const importAll = (r) => r.keys().map(r);
+        return importAll(
+            require.context("../../assets/Projects", false, /\.(png|jpe?g|svg)$/)
+        );
+    }, []);
+
     return (
-        <div className="carousel-container">
-            <h1>Projects</h1>
-            <Swiper
-                modules={[Navigation, Pagination, A11y]}
-                loop={true}
-                spaceBetween={50}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-            >
-                {projectImages.map((image, index) => (
-                    <SwiperSlide>
-                        {console.log(image)}
-                        <img src={image} alt={`Slide ${index + 1}`} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+        <div className="projects-section">
+            <ImageCarousel 
+                title="Projects" 
+                images={projectImages} 
+                altPrefix="Project" 
+            />
         </div>
     );
 }

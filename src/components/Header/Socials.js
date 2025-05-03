@@ -50,6 +50,26 @@ function Socials() {
                 </div>
             </a>
             <a
+                href="https://github.com/your-github-username"
+                target="_blank"
+                rel="noreferrer"
+                tabIndex="3"
+                className="button b3"
+            >
+                <Tooltip>
+                    <span className="tooltiptext">
+                        GitHub&nbsp;&nbsp;
+                        <FontAwesomeIcon
+                            icon={["fas", "arrow-up-right-from-square"]}
+                        />
+                    </span>
+                </Tooltip>
+
+                <div className="placeholder">
+                    <FontAwesomeIcon icon={["fab", "github"]} />
+                </div>
+            </a>
+            <a
                 href="https://www.linkedin.com/in/tj-carino/"
                 target="_blank"
                 rel="noreferrer"

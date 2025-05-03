@@ -1,7 +1,6 @@
 import React from "react";
 import "./Header.css";
 import Socials from "./Socials";
-import Scroll from "../Scroll/Scroll";
 
 function Header() {
     return (
@@ -28,7 +27,6 @@ function Header() {
                     </a>
                 </h3>
             </div>
-            <Scroll text="Certificates" />
         </div>
     );
 }
