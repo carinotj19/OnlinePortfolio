@@ -1,3 +1,17 @@
+.certificates-section {
+    padding: 100px 0 120px;
+    background-color: #121212;
+}
+
+.certificates-section h1 {
+    text-align: center;
+    margin-bottom: 60px;
+    color: white;
+    font-size: 6rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* These styles will be overridden by the ImageCarousel.css for the slides */
 .slide-content {
     display: flex;
     justify-content: center;
@@ -9,4 +23,15 @@
     width: 500px; /* Adjust as needed */
     height: 400px; /* Adjust as needed */
     object-fit: fill; /* Ensure the entire image is visible within the specified dimensions */
+}
+
+@media (max-width: 768px) {
+    .certificates-section {
+        padding: 60px 10px 80px;
+    }
+    
+    .certificates-section h1 {
+        font-size: 4rem;
+        margin-bottom: 40px;
+    }
 }

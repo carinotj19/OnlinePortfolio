@@ -37,7 +37,7 @@ code {
     flex-direction: column;
     justify-content: center;
     padding: 2rem 0;
-    overflow: visible;
+    overflow: visible !important;
 }
 
 .section-content {
@@ -49,13 +49,15 @@ code {
     width: 100%;
     padding-top: 80px;
     padding-bottom: 120px;
+    overflow: visible !important;
 }
 
 /* Apply specific styles when section is active */
 .section.active .scroll-indicator,
 .section.active .scroll-up-indicator {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
 .section:not(.active) .scroll-indicator,

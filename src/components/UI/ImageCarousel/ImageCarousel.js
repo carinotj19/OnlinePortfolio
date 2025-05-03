@@ -1,54 +1,96 @@
 import React, { useState } from "react";
-import { Navigation, Pagination, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./ImageCarousel.css";
 
-const ImageCarousel = ({ title, images, altPrefix }) => {
-    const [imageErrors, setImageErrors] = useState({});
+const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
+  const [errors, setErrors] = useState({});
 
-    const handleImageError = (index) => {
-        setImageErrors(prev => ({
-            ...prev,
-            [index]: true
-        }));
-    };
+  // If fewer than 5 slides, duplicate for better loop behavior
+  const slides = images.length < 5 ? [...images, ...images] : images;
+  const meta = metadata?.length < 5 ? [...metadata, ...metadata] : metadata;
+  
+  const onError = i => setErrors(prev => ({ ...prev, [i]: true }));
+  const onView = (url, e) => {
+    if (e) e.stopPropagation();
+    window.open(url, "_blank");
+  };
 
-    return (
-        <div className="carousel-container">
-            <h1>{title}</h1>
-            <Swiper
-                modules={[Navigation, Pagination, A11y]}
-                loop={true}
-                spaceBetween={50}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-            >
-                {images.map((image, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="slide-content">
-                            {imageErrors[index] ? (
-                                <div className="image-error">
-                                    <p>Failed to load image</p>
-                                </div>
-                            ) : (
-                                <img
-                                    src={image}
-                                    alt={`${altPrefix} ${index + 1}`}
-                                    className="slide-image"
-                                    onError={() => handleImageError(index)}
-                                />
-                            )}
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
-    );
+  // Slick settings
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: "60px",
+    autoplay: false,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1.5,
+          slidesToScroll: 1,
+          centerPadding: "40px"
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerPadding: "20px"
+        }
+      }
+    ],
+    className: "certificate-slider"
+  };
+
+  return (
+    <div className="carousel-container">
+      <h1>{title}</h1>
+      {/* The Slider component would be used here when react-slick is installed */}
+      <div className="slider-wrapper">
+        <Slider {...settings}>
+          {slides.map((src, i) => (
+            <div key={i} className="slide-container">
+              <div className="slide-content">
+                {errors[i] ? (
+                  <div className="image-error">
+                    <p>Failed to load</p>
+                  </div>
+                ) : (
+                  <div className="card">
+                    <img
+                      src={src}
+                      alt={`${altPrefix} ${i+1}`}
+                      loading="lazy"
+                      onError={() => onError(i)}
+                      className="slide-image"
+                    />
+                    <div className="card-overlay">
+                      {meta?.[i] && <h3>{meta[i].title}</h3>}
+                      <button onClick={(e) => onView(src, e)}>View</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </div>
+  );
 };
 
-export default ImageCarousel; 
+export default ImageCarousel;

@@ -1,8 +1,9 @@
 /* Layout component styles */
 .layout-container {
-    width: 100%;
-    height: 100vh;
     position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: visible !important; /* Ensure overflow is visible */
 }
 
 .section-container {

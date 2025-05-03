@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import ImageCarousel from "../UI/ImageCarousel/ImageCarousel";
+import "./Certificates.css";
 
 function Certificates() {
     // Import all images from the Certificates folder dynamically
@@ -10,12 +11,29 @@ function Certificates() {
         );
     }, []);
 
+    // Certificate metadata (ideally this would come from a database or external file)
+    const certificateData = certificateImages.map((image, index) => {
+        // Extract filename without extension more robustly
+        const filename = image.split('/').pop();
+        // Handle filenames with multiple dots by joining all but last part
+        const parts = filename.split('.');
+        parts.pop(); // Remove extension
+        const title = parts.join('.').replace(/_/g, ' ');
+        
+        return {
+            image: image,
+            title: title,
+            id: index + 1
+        };
+    });
+
     return (
-        <div className="certificates-section">
+        <div className="certificates-section" id="certificates">
             <ImageCarousel 
                 title="Certificates" 
-                images={certificateImages} 
+                images={certificateData.map(cert => cert.image)} 
                 altPrefix="Certificate" 
+                metadata={certificateData}
             />
         </div>
     );

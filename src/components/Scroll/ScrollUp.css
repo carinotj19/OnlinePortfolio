@@ -1,13 +1,13 @@
 .scroll-up-indicator {
-    position: absolute;
+    position: fixed;
     top: 40px;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9999;
     text-align: center;
     pointer-events: auto;
     cursor: pointer;
@@ -15,7 +15,7 @@
 }
 
 .scroll-up-indicator:hover {
-    transform: translateY(-5px);
+    transform: translate(-50%, -5px);
 }
 
 .scroll-up-indicator .text {
@@ -90,6 +90,7 @@
 
 .scroll-up-indicator.visible {
     animation: fade-in 0.5s ease forwards;
+    opacity: 1;
 }
 
 .scroll-up-indicator.hidden {
