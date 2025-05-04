@@ -58,12 +58,14 @@ code {
     visibility: visible !important;
     opacity: 1 !important;
     pointer-events: auto !important;
+    display: flex !important;
 }
 
 .section:not(.active) .scroll-indicator,
 .section:not(.active) .scroll-up-indicator {
     visibility: hidden;
     opacity: 0;
+    display: none;
 }
 
 /* Add space at the bottom of sections to accommodate the scroll indicator */

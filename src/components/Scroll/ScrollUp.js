@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./ScrollUp.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -10,22 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 library.add(fas, far, fab);
 
 const ScrollUp = ({ text, onClick }) => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    // Handle scroll position to update visibility
-    useEffect(() => {
-        const handleScroll = () => {
-            // Hide/show logic can be implemented here
-            // For example, hide when at the very top of the section
-            setIsVisible(window.pageYOffset > 100);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
     // Add keyboard navigation
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -41,11 +25,8 @@ const ScrollUp = ({ text, onClick }) => {
         };
     }, [onClick]);
 
-    // Create dynamic class based on visibility
-    const visibilityClass = isVisible ? "visible" : "hidden";
-
     return (
-        <div className={`scroll-up-indicator ${visibilityClass}`} onClick={onClick}>
+        <div className="scroll-up-indicator visible" onClick={onClick}>
             <div className="icon">
                 <FontAwesomeIcon icon={["fas", "angle-double-up"]} />
             </div>

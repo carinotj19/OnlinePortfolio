@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import Header from "./components/Header/Header";
 import Projects from "./components/Projects/Projects";
 import Certificates from "./components/Certificates/Certificates";
 import Layout from "./components/Layout/Layout";
 import ScrollDown from "./components/Scroll/ScrollDown";
 import ScrollUp from "./components/Scroll/ScrollUp";
-import ScrollProgress from "./components/Scroll/ScrollProgress";
 import SectionNav from "./components/Navigation/SectionNav";
 
 const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSectionName, prevSectionName, goToPage }) => {
@@ -71,7 +70,6 @@ function App() {
 
     return (
         <>
-            <ScrollProgress />
             <SectionNav 
                 sections={sections} 
                 currentSection={activeSection} 
