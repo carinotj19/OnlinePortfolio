@@ -1,18 +1,31 @@
 {
   "files": {
-    "main.css": "/OnlinePortfolio/static/css/main.cfc6710c.css",
-    "main.js": "/OnlinePortfolio/static/js/main.852c7e2e.js",
+    "main.css": "/OnlinePortfolio/static/css/main.9dd24ef8.css",
+    "main.js": "/OnlinePortfolio/static/js/main.09cb09c8.js",
     "static/js/453.41811d64.chunk.js": "/OnlinePortfolio/static/js/453.41811d64.chunk.js",
-    "static/media/Untitled design.png": "/OnlinePortfolio/static/media/Untitled design.f58198cea06b68e2fb8f.png",
+    "static/media/Catholic School Website.png": "/OnlinePortfolio/static/media/Catholic School Website.272c6cbec8a50ea6ec37.png",
+    "static/media/Javascript Drumkit.png": "/OnlinePortfolio/static/media/Javascript Drumkit.d66abc62ca185f95207c.png",
+    "static/media/Jeepney Streamlit Application.png": "/OnlinePortfolio/static/media/Jeepney Streamlit Application.bdafc7789eccafddfe31.png",
+    "static/media/Responsive web design.png": "/OnlinePortfolio/static/media/Responsive web design.f58198cea06b68e2fb8f.png",
+    "static/media/Fine Ads Mockup.png": "/OnlinePortfolio/static/media/Fine Ads Mockup.8a48335a113fb75a8d2a.png",
+    "static/media/Simple Clock.png": "/OnlinePortfolio/static/media/Simple Clock.598ac1fbc4fd49fe9428.png",
+    "static/media/Udemy CSS_JS_PHP_Python Course.jpg": "/OnlinePortfolio/static/media/Udemy CSS_JS_PHP_Python Course.ff4c5e661edb7011c1b6.jpg",
+    "static/media/Udemy PHP Master Class Course.jpg": "/OnlinePortfolio/static/media/Udemy PHP Master Class Course.ef756c6ebb18e8d2b63c.jpg",
+    "static/media/Brainy Box.png": "/OnlinePortfolio/static/media/Brainy Box.3507789196e136a1de37.png",
     "static/media/Coursera Meta Course.png": "/OnlinePortfolio/static/media/Coursera Meta Course.832da6e8639ec1b874a0.png",
+    "static/media/Smart Job Tracker.png": "/OnlinePortfolio/static/media/Smart Job Tracker.df3ccd9300a332420a5c.png",
     "static/media/GDP Baguio.png": "/OnlinePortfolio/static/media/GDP Baguio.82dab6b36c3e09a19e23.png",
+    "static/media/slick.svg": "/OnlinePortfolio/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/OnlinePortfolio/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/OnlinePortfolio/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/OnlinePortfolio/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/OnlinePortfolio/index.html",
-    "main.cfc6710c.css.map": "/OnlinePortfolio/static/css/main.cfc6710c.css.map",
-    "main.852c7e2e.js.map": "/OnlinePortfolio/static/js/main.852c7e2e.js.map",
+    "main.9dd24ef8.css.map": "/OnlinePortfolio/static/css/main.9dd24ef8.css.map",
+    "main.09cb09c8.js.map": "/OnlinePortfolio/static/js/main.09cb09c8.js.map",
     "453.41811d64.chunk.js.map": "/OnlinePortfolio/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfc6710c.css",
-    "static/js/main.852c7e2e.js"
+    "static/css/main.9dd24ef8.css",
+    "static/js/main.09cb09c8.js"
   ]
 }
