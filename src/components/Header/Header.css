@@ -3,13 +3,14 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
     place-items: center;
+    max-width: 100%;
 }
 
 .button {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
+    border-radius: 18px;
     position: relative;
     -webkit-box-shadow: 0px 0px 0px 2px transparent;
     -moz-box-shadow: 0px 0px 0px 2px transparent;
@@ -70,14 +71,14 @@
 }
 
 .workBadge {
-    margin-top: 70px;
+    margin-top: 40px;
     color: white;
     font-family: DM Sans, sans-serif;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.7px;
     line-height: 1.2em;
-    padding: 10px 10px;
+    padding: 8px 10px;
     margin-bottom: 12px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -90,7 +91,7 @@
 }
 
 .current {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .uc_link{
@@ -107,15 +108,67 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
-    .container{
-        padding: 25px;
-        margin-top: 0px;
-    }
+.container {
+    padding: 20px;
+    margin-top: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-	.container h1 {
-		font-size: 32px;
-		font-weight: 400;
-		letter-spacing: -1px;
-	}
+.container h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+    .container h1 {
+        font-size: 36px;
+    }
+    
+    .button {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+    }
+    
+    .social_buttons {
+        gap: 8px;
+    }
+    
+    .current h3 {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .container h1 {
+        font-size: 28px;
+    }
+    
+    .button {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+    }
+    
+    .social_buttons {
+        gap: 6px;
+    }
+    
+    .current h3 {
+        font-size: 14px;
+    }
+    
+    .workBadge {
+        margin-top: 30px;
+        font-size: 10px;
+        padding: 6px 8px;
+    }
 }

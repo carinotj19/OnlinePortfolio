@@ -5,7 +5,7 @@ import Socials from "./Socials";
 function Header() {
     return (
         <div className="container">
-            <h1>TJ is a Software Developer in Baguio City, Philippines</h1>
+            <h1>TJ is a Software Developer <br /> in Baguio City, Philippines</h1>
             <Socials />
             <div className="current">
                 <div className="workBadge" aria-label="Current">
