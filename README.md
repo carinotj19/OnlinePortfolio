@@ -14,7 +14,7 @@ A modern, responsive online portfolio showcasing my projects, certificates, and 
 
 - React 18
 - React Page Scroller for fullpage scrolling
-- Swiper for image carousels
+- Slick JS for image carousels
 - FontAwesome for icons
 - GitHub Pages for deployment
 

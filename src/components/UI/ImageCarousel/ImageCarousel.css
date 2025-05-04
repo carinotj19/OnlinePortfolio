@@ -132,7 +132,6 @@
 
 .slider-wrapper {
     touch-action: pan-x;
-    overscroll-behavior: contain;
 }
 
 @media (max-width: 768px) {

@@ -62,11 +62,6 @@ function App() {
         setActiveSection(index);
     };
 
-    // Handle page change directly from the Layout component
-    const handleLayoutPageChange = (pageNumber) => {
-        setActiveSection(pageNumber);
-    };
-
     return (
         <>
             <DotNav
