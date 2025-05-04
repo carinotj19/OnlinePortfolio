@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/OnlinePortfolio/static/css/main.9dd24ef8.css",
-    "main.js": "/OnlinePortfolio/static/js/main.09cb09c8.js",
+    "main.js": "/OnlinePortfolio/static/js/main.2143ed7d.js",
     "static/js/453.41811d64.chunk.js": "/OnlinePortfolio/static/js/453.41811d64.chunk.js",
     "static/media/Catholic School Website.png": "/OnlinePortfolio/static/media/Catholic School Website.272c6cbec8a50ea6ec37.png",
     "static/media/Javascript Drumkit.png": "/OnlinePortfolio/static/media/Javascript Drumkit.d66abc62ca185f95207c.png",
@@ -21,11 +21,11 @@
     "static/media/slick.woff": "/OnlinePortfolio/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/OnlinePortfolio/index.html",
     "main.9dd24ef8.css.map": "/OnlinePortfolio/static/css/main.9dd24ef8.css.map",
-    "main.09cb09c8.js.map": "/OnlinePortfolio/static/js/main.09cb09c8.js.map",
+    "main.2143ed7d.js.map": "/OnlinePortfolio/static/js/main.2143ed7d.js.map",
     "453.41811d64.chunk.js.map": "/OnlinePortfolio/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9dd24ef8.css",
-    "static/js/main.09cb09c8.js"
+    "static/js/main.2143ed7d.js"
   ]
 }
