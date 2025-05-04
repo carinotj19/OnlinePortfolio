@@ -24,14 +24,14 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
   const [errors, setErrors] = useState({});
   const touchStart = useRef({ x: 0, y: 0 });
   // If fewer than 5 slides, duplicate for better loop behavior
-  const slides = images.length < 4 ? [...images, ...images] : images;
-  const meta = metadata?.length < 5 ? [...metadata, ...metadata] : metadata;
+  const slides = images.length < 5 ? [...images, ...images] : images;
+  const meta = metadata
+    ? (metadata.length < slides.length
+      ? [...metadata, ...metadata].slice(0, slides.length)
+      : metadata)
+    : [];
 
   const onError = i => setErrors(prev => ({ ...prev, [i]: true }));
-  const onView = (url, e) => {
-    if (e) e.stopPropagation();
-    window.open(url, "_blank");
-  };
 
   const handleStart = e => {
     const pt = e.touches ? e.touches[0] : e;
@@ -53,7 +53,7 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
     dots: false,
     infinite: true,
     speed: 1500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "60px",
@@ -121,8 +121,29 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
                       className="slide-image"
                     />
                     <div className="card-overlay">
-                      {meta?.[i] && <h3>{meta[i].title}</h3>}
-                      <button onClick={(e) => onView(src, e)}>View</button>
+                      {meta[i]?.title && <h3>{meta[i].title}</h3>}
+                      <div className="overlay-buttons">
+                        <button
+                          className="btn-image"
+                          onClick={e => {
+                            e.stopPropagation();
+                            window.open(src, "_blank");
+                          }}
+                        >
+                          View Image
+                        </button>
+                        {meta[i]?.url && (
+                          <a
+                            className="overlay-link"
+                            href={meta[i].url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={e => e.stopPropagation()}
+                          >
+                            View Repo
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}

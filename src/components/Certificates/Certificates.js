@@ -17,12 +17,10 @@ function Certificates() {
         const filename = image.split('/').pop();
         // Handle filenames with multiple dots by joining all but last part
         const parts = filename.split('.');
-        parts.pop(); // Remove extension
-        const title = parts.join('.').replace(/_/g, ' ');
+        parts.pop();
         
         return {
             image: image,
-            title: title,
             id: index + 1
         };
     });
