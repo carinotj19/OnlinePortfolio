@@ -5,7 +5,7 @@ import Certificates from "./components/Certificates/Certificates";
 import Layout from "./components/Layout/Layout";
 import ScrollDown from "./components/Scroll/ScrollDown";
 import ScrollUp from "./components/Scroll/ScrollUp";
-import SectionNav from "./components/Navigation/SectionNav";
+import DotNav from "./components/Navigation/DotNav";
 
 const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSectionName, prevSectionName, goToPage }) => {
     // Show scroll down indicator if this isn't the last section
@@ -70,10 +70,11 @@ function App() {
 
     return (
         <>
-            <SectionNav 
-                sections={sections} 
-                currentSection={activeSection} 
-                onSectionChange={goToPage} 
+            <DotNav
+                sections={sections}
+                currentSection={activeSection}
+                onSectionChange={goToPage}
+                position="right"
             />
             <Layout onPageChange={handleLayoutPageChange}>
                 {sections.map((section, index) => (

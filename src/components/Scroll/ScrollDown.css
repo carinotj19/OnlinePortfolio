@@ -13,7 +13,6 @@
     cursor: pointer;
     transition: all 0.4s ease;
     animation: bob-vertical 2s ease-in-out infinite;
-    opacity: 1;
 }
 
 .scroll-indicator:hover {
@@ -101,9 +100,8 @@
 }
 
 .scroll-indicator.visible {
-    visibility: visible;
+    animation: fade-in 0.5s ease forwards, bob-vertical 2s ease-in-out infinite 0.5s;
     opacity: 1;
-    display: flex;
 }
 
 .scroll-indicator.hidden {
