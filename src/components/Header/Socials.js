@@ -50,7 +50,7 @@ function Socials() {
                 </div>
             </a>
             <a
-                href="https://github.com/your-github-username"
+                href="https://github.com/carinotj19"
                 target="_blank"
                 rel="noreferrer"
                 tabIndex="3"
