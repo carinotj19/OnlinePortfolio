@@ -1,64 +1,47 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { SectionContainer } from "react-page-scroller";
 import ForwardRefPageScroller from "./ForwardRefPageScroller";
 import "./Layout.css";
 
-const Layout = ({ children, onPageChange }) => {
-    const [currentPage, setCurrentPage] = useState(0);
-    const scrollerRef = useRef(null);
-    
-    const handlePageChange = (number) => {
-        setCurrentPage(number);
-        // Notify parent component (App.js) about page change
-        if (onPageChange) {
-            onPageChange(number);
-        }
-    };
+const Layout = ({ children, currentPage, onPageChange }) => {
+  const scrollerRef = useRef(null);
 
-    const goToPage = useCallback((pageNumber) => {
-        setCurrentPage(pageNumber);
-        if (scrollerRef.current) {
-            scrollerRef.current.goToPage(pageNumber);
-        }
-        // Notify parent component (App.js) about page change
-        if (onPageChange) {
-            onPageChange(pageNumber);
-        }
-    }, [onPageChange]);
+  // Whenever App.activeSection changes, move the scroller
+  useEffect(() => {
+    if (scrollerRef.current) {
+      scrollerRef.current.goToPage(currentPage);
+    }
+  }, [currentPage]);
 
-    // This will enable scroll on mount
-    useEffect(() => {
-        // Enable scroll and touch events for the entire page
-        document.body.style.overflow = 'visible';
-        document.body.style.touchAction = 'auto';
-        
-        return () => {
-            document.body.style.overflow = '';
-            document.body.style.touchAction = '';
-        };
-    }, []);
+  // Expose a method for arrows or dots to jump
+  const goToPage = pageNumber => {
+    if (scrollerRef.current) {
+      scrollerRef.current.goToPage(pageNumber);
+    }
+    onPageChange(pageNumber);
+  };
 
-    return (
-        <div className="layout-container">
-            <ForwardRefPageScroller
-                ref={scrollerRef}
-                onBeforePageScroll={handlePageChange}
-                customPageNumber={currentPage}
-                pageOnChange={handlePageChange}
-            >
-                {React.Children.map(children, (child, index) => (
-                    <SectionContainer key={index}>
-                        {React.cloneElement(child, { 
-                            isActive: currentPage === index,
-                            sectionIndex: index,
-                            totalSections: React.Children.count(children),
-                            goToPage
-                        })}
-                    </SectionContainer>
-                ))}
-            </ForwardRefPageScroller>
-        </div>
-    );
+  return (
+    <div className="layout-container">
+      <ForwardRefPageScroller
+        ref={scrollerRef}
+        customPageNumber={currentPage}
+        onBeforePageScroll={onPageChange}
+        pageOnChange={onPageChange}
+      >
+        {React.Children.map(children, (child, idx) => (
+          <SectionContainer key={idx}>
+            {React.cloneElement(child, {
+              isActive: idx === currentPage,
+              sectionIndex: idx,
+              totalSections: React.Children.count(children),
+              goToPage
+            })}
+          </SectionContainer>
+        ))}
+      </ForwardRefPageScroller>
+    </div>
+  );
 };
 
-export default Layout; 
+export default Layout;

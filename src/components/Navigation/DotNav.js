@@ -6,10 +6,12 @@ const DotNav = ({ sections, currentSection, onSectionChange, position = 'right' 
     <div className={`dotnav-container dotnav-${position}`}>
       <div className="dotnav">
         {sections.map((section, index) => (
-          <div 
+          <div
             key={index}
             className={`dotnav-item ${currentSection === index ? 'active' : ''}`}
-            onClick={() => onSectionChange(index)}
+            onClick={() => {
+              onSectionChange(index);
+            }}
             title={section.name}
           >
             <span className="dotnav-dot"></span>

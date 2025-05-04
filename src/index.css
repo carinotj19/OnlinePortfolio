@@ -113,6 +113,7 @@ code {
 
 .carousel-container h1 {
     font-style: normal;
+    font-weight: 700;
     font-size: 80px;
     letter-spacing: -3px;
     line-height: 1.2em;
@@ -144,8 +145,7 @@ code {
 
 	.carousel-container h1 {
 		font-size: 32px;
-		font-weight: 400;
-		letter-spacing: -1px;
+		letter-spacing: 1px;
 	}
 
     .swiper {

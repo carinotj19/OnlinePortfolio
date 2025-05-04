@@ -10,37 +10,36 @@ import DotNav from "./components/Navigation/DotNav";
 const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSectionName, prevSectionName, goToPage }) => {
     // Show scroll down indicator if this isn't the last section
     const showScrollDown = sectionIndex < totalSections - 1;
-    
     // Show scroll up indicator if this isn't the first section
     const showScrollUp = sectionIndex > 0;
-    
+
     // Function to handle scroll to next section
     const handleScrollDown = () => {
         if (goToPage) {
             goToPage(sectionIndex + 1);
         }
     };
-    
+
     // Function to handle scroll to previous section
     const handleScrollUp = () => {
         if (goToPage) {
             goToPage(sectionIndex - 1);
         }
     };
-    
+
     return (
         <div id={id} className={`section ${isActive ? 'active' : ''}`}>
             <div className="section-content">
                 {showScrollUp && isActive && (
-                    <ScrollUp 
-                        text={prevSectionName} 
+                    <ScrollUp
+                        text={prevSectionName}
                         onClick={handleScrollUp}
                     />
                 )}
                 {children}
                 {showScrollDown && isActive && (
-                    <ScrollDown 
-                        text={nextSectionName} 
+                    <ScrollDown
+                        text={nextSectionName}
                         onClick={handleScrollDown}
                     />
                 )}
@@ -51,18 +50,18 @@ const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSect
 
 function App() {
     const [activeSection, setActiveSection] = useState(0);
-    
+
     // Use useMemo to prevent the sections array from causing unnecessary re-renders
     const sections = useMemo(() => [
         { id: "home", component: <Header />, name: "Home", title: "Home" },
         { id: "certificates", component: <Certificates />, name: "Certificates", title: "Certificates" },
         { id: "projects", component: <Projects />, name: "Projects", title: "Projects" }
     ], []);
-    
+
     const goToPage = (index) => {
         setActiveSection(index);
     };
-    
+
     // Handle page change directly from the Layout component
     const handleLayoutPageChange = (pageNumber) => {
         setActiveSection(pageNumber);
@@ -73,12 +72,15 @@ function App() {
             <DotNav
                 sections={sections}
                 currentSection={activeSection}
-                onSectionChange={goToPage}
+                onSectionChange={setActiveSection}
                 position="right"
             />
-            <Layout onPageChange={handleLayoutPageChange}>
+            <Layout
+                currentPage={activeSection}
+                onPageChange={setActiveSection}
+            >
                 {sections.map((section, index) => (
-                    <Section 
+                    <Section
                         key={index}
                         id={section.id}
                         isActive={index === activeSection}
