@@ -1,22 +1,7 @@
-import React, { useState } from 'react';
-
 function Tooltip({ children }) {
-    const [showTooltip, setShowTooltip] = useState(false);
-
-    const handleMouseEnter = () => {
-        setShowTooltip(true);
-    };
-
-    const handleMouseLeave = () => {
-        setShowTooltip(false);
-    };
-
-    return (
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            {children}
-            {showTooltip && {children}}
-        </div>
-    );
+    // Tooltip visibility is controlled purely by CSS using .button:hover .tooltiptext
+    // We just render the tooltip content directly to keep DOM minimal and styling predictable.
+    return children;
 }
 
 export default Tooltip;

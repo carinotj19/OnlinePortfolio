@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import ImageCarousel from "../UI/ImageCarousel/ImageCarousel";
 import "./Certificates.css";
 
-function Certificates() {
+function Certificates({ isActive }) {
     // Import all images from the Certificates folder dynamically
     const certificateImages = useMemo(() => {
         const importAll = (r) => r.keys().map(r);
@@ -32,6 +32,7 @@ function Certificates() {
                 images={certificateData.map(cert => cert.image)} 
                 altPrefix="Certificate" 
                 metadata={certificateData}
+                isActive={isActive}
             />
         </div>
     );

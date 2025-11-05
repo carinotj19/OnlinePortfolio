@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -20,9 +20,11 @@ const NextArrow = ({ onClick }) => (
   </button>
 );
 
-const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
+const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) => {
   const [errors, setErrors] = useState({});
   const touchStart = useRef({ x: 0, y: 0 });
+  const sliderRef = useRef(null);
+  const containerRef = useRef(null);
   // If fewer than 5 slides, duplicate for better loop behavior
   const slides = images.length < 5 ? [...images, ...images] : images;
   const meta = metadata
@@ -48,6 +50,43 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
     }
   };
 
+  // Force slick to recalc when the carousel becomes visible
+  useEffect(() => {
+    const recalc = () => {
+      if (sliderRef.current) {
+        try {
+          sliderRef.current.slickGoTo(0, true);
+        } catch (_) {}
+        try {
+          window.dispatchEvent(new Event('resize'));
+        } catch (_) {}
+      }
+    };
+
+    // On mount and after images load
+    const t = setTimeout(recalc, 50);
+
+    // Recalc when tab becomes visible again
+    const onVis = () => document.visibilityState === 'visible' && recalc();
+    document.addEventListener('visibilitychange', onVis);
+
+    // Cleanup
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [images.length]);
+
+  // When the section becomes active, ensure slick is laid out
+  useEffect(() => {
+    if (isActive) {
+      try {
+        if (sliderRef.current) sliderRef.current.slickGoTo(0, true);
+        window.dispatchEvent(new Event('resize'));
+      } catch (_) {}
+    }
+  }, [isActive]);
+
   // Slick settings
   const settings = {
     dots: false,
@@ -61,6 +100,8 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
     pauseOnHover: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    initialSlide: 0,
+    lazyLoad: 'ondemand',
     responsive: [
       {
         breakpoint: 1200,
@@ -94,7 +135,7 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
   };
 
   return (
-    <div className="carousel-container">
+    <div className="carousel-container" ref={containerRef}>
       <h1>{title}</h1>
       <div
         className="slider-wrapper"
@@ -103,7 +144,7 @@ const ImageCarousel = ({ title, images, altPrefix, metadata }) => {
         onTouchMove={handleMove}
         onPointerMove={handleMove}
       >
-        <Slider {...settings}>
+        <Slider ref={sliderRef} {...settings}>
           {slides.map((src, i) => (
             <div key={i} className="slide-container">
               <div className="slide-content">

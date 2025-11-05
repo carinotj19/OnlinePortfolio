@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import "./ScrollDown.css";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// Initialize FontAwesome library once outside the component
-library.add(fas, far, fab);
+import "../../icons";
 
 const Scroll = ({ text, onClick }) => {
     // Add keyboard navigation

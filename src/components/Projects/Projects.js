@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import ImageCarousel from "../UI/ImageCarousel/ImageCarousel";
 
-function Projects() {
+function Projects({ isActive }) {
     // Import all images from the Projects folder dynamically
     const items = useMemo(() => {
         const r = require.context(
@@ -41,6 +41,7 @@ function Projects() {
                 images={images}
                 metadata={metadata}
                 altPrefix="Project"
+                isActive={isActive}
             />
         </div>
     );

@@ -36,7 +36,9 @@ const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSect
                         onClick={handleScrollUp}
                     />
                 )}
-                {children}
+                {React.isValidElement(children)
+                    ? React.cloneElement(children, { isActive })
+                    : children}
                 {showScrollDown && isActive && (
                     <ScrollDown
                         text={nextSectionName}
