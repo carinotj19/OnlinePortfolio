@@ -11,6 +11,8 @@
     text-align: center;
     pointer-events: auto;
     cursor: pointer;
+    background: none;
+    border: 0;
     transition: all 0.4s ease;
     animation: bob-vertical-up 2s ease-in-out infinite;
     opacity: 1;
@@ -25,7 +27,7 @@
     font-size: 16px;
     font-weight: 500;
     margin-top: 8px;
-    color: white;
+    color: var(--text);
     background-color: rgba(0, 0, 0, 0.6);
     padding: 5px 15px;
     border-radius: 20px;
@@ -146,4 +148,18 @@
         height: 40px;
         font-size: 20px;
     }
-} 
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-up-indicator {
+        animation: none;
+    }
+    .scroll-up-indicator .icon::before,
+    .scroll-up-indicator.visible {
+        animation: none;
+    }
+    .scroll-up-indicator:hover {
+        transform: translateX(-50%);
+    }
+}

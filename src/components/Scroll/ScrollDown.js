@@ -20,12 +20,17 @@ const Scroll = ({ text, onClick }) => {
     }, [onClick]);
 
     return (
-        <div className="scroll-indicator visible" onClick={onClick}>
+        <button
+            type="button"
+            className="scroll-indicator visible"
+            onClick={onClick}
+            aria-label={`Scroll to ${text}`}
+        >
             <div className="text">Scroll to {text}</div>
-            <div className="icon">
+            <div className="icon" aria-hidden="true">
                 <FontAwesomeIcon icon={["fas", "angle-double-down"]} />
             </div>
-        </div>
+        </button>
     );
 };
 

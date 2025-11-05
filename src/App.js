@@ -3,6 +3,8 @@ import Header from "./components/Header/Header";
 import Projects from "./components/Projects/Projects";
 import Certificates from "./components/Certificates/Certificates";
 import Layout from "./components/Layout/Layout";
+import ThemeProvider from "./components/Theme/ThemeProvider";
+import ThemeToggle from "./components/Theme/ThemeToggle";
 import ScrollDown from "./components/Scroll/ScrollDown";
 import ScrollUp from "./components/Scroll/ScrollUp";
 import DotNav from "./components/Navigation/DotNav";
@@ -65,7 +67,8 @@ function App() {
     };
 
     return (
-        <>
+        <ThemeProvider>
+            <ThemeToggle />
             <DotNav
                 sections={sections}
                 currentSection={activeSection}
@@ -91,7 +94,7 @@ function App() {
                     </Section>
                 ))}
             </Layout>
-        </>
+        </ThemeProvider>
     );
 }
 

@@ -9,8 +9,8 @@ function Socials() {
             <a
                 href="mailto:carinotj19@gmail.com"
                 target="_blank"
-                rel="noreferrer"
-                tabIndex="1"
+                rel="noopener noreferrer"
+                aria-label="Email TJ"
                 className="button b1"
             >
                 <Tooltip>
@@ -18,18 +18,19 @@ function Socials() {
                         Reach out&nbsp;&nbsp;
                         <FontAwesomeIcon
                             icon={["fas", "arrow-up-right-from-square"]}
+                            aria-hidden="true"
                         />
                     </span>
                 </Tooltip>
-                <div className="placeholder">
+                <div className="placeholder" aria-hidden="true">
                     <FontAwesomeIcon icon={["fas", "paper-plane"]} />
                 </div>
             </a>
             <a
                 href="https://drive.google.com/file/d/1Ce4KU_GhiHrdWfJOP_futilsJWqcloCP/view"
                 target="_blank"
-                rel="noreferrer"
-                tabIndex="2"
+                rel="noopener noreferrer"
+                aria-label="View resume (opens in new tab)"
                 className="button b2"
             >
                 <Tooltip>
@@ -37,19 +38,20 @@ function Socials() {
                         Resume&nbsp;&nbsp;
                         <FontAwesomeIcon
                             icon={["fas", "arrow-up-right-from-square"]}
+                            aria-hidden="true"
                         />
                     </span>
                 </Tooltip>
 
-                <div className="placeholder">
+                <div className="placeholder" aria-hidden="true">
                     <FontAwesomeIcon icon={["fas", "paperclip"]} />
                 </div>
             </a>
             <a
                 href="https://github.com/carinotj19"
                 target="_blank"
-                rel="noreferrer"
-                tabIndex="3"
+                rel="noopener noreferrer"
+                aria-label="Open TJ's GitHub profile"
                 className="button b3"
             >
                 <Tooltip>
@@ -57,19 +59,20 @@ function Socials() {
                         GitHub&nbsp;&nbsp;
                         <FontAwesomeIcon
                             icon={["fas", "arrow-up-right-from-square"]}
+                            aria-hidden="true"
                         />
                     </span>
                 </Tooltip>
 
-                <div className="placeholder">
+                <div className="placeholder" aria-hidden="true">
                     <FontAwesomeIcon icon={["fab", "github"]} />
                 </div>
             </a>
             <a
                 href="https://www.linkedin.com/in/tj-carino/"
                 target="_blank"
-                rel="noreferrer"
-                tabIndex="4"
+                rel="noopener noreferrer"
+                aria-label="Open TJ's LinkedIn profile"
                 className="button b5"
             >
                 <Tooltip>
@@ -77,11 +80,12 @@ function Socials() {
                         LinkedIn&nbsp;&nbsp;
                         <FontAwesomeIcon
                             icon={["fas", "arrow-up-right-from-square"]}
+                            aria-hidden="true"
                         />
                     </span>
                 </Tooltip>
 
-                <div className="placeholder">
+                <div className="placeholder" aria-hidden="true">
                     <FontAwesomeIcon icon={["fab", "linkedin-in"]} />
                 </div>
             </a>

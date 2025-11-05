@@ -20,12 +20,17 @@ const ScrollUp = ({ text, onClick }) => {
     }, [onClick]);
 
     return (
-        <div className="scroll-up-indicator visible" onClick={onClick}>
-            <div className="icon">
+        <button
+            type="button"
+            className="scroll-up-indicator visible"
+            onClick={onClick}
+            aria-label={`Scroll to ${text}`}
+        >
+            <div className="icon" aria-hidden="true">
                 <FontAwesomeIcon icon={["fas", "angle-double-up"]} />
             </div>
             <div className="text">Scroll to {text}</div>
-        </div>
+        </button>
     );
 };
 

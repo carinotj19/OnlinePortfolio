@@ -50,27 +50,29 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
     }
   };
 
-  // Force slick to recalc when the carousel becomes visible
-  useEffect(() => {
-    const recalc = () => {
-      if (sliderRef.current) {
-        try {
-          sliderRef.current.slickGoTo(0, true);
-        } catch (_) {}
-        try {
-          window.dispatchEvent(new Event('resize'));
-        } catch (_) {}
-      }
+  // Robust relayout function for react-slick in hidden containers
+  const ensureLayout = () => {
+    const tryRecalc = () => {
+      if (!sliderRef.current) return;
+      try { sliderRef.current.slickGoTo(0, true); } catch (_) {}
+      try {
+        const inner = sliderRef.current.innerSlider;
+        if (inner && typeof inner.onWindowResized === 'function') inner.onWindowResized();
+      } catch (_) {}
+      try { window.dispatchEvent(new Event('resize')); } catch (_) {}
     };
+    // Burst of attempts: immediate, next frame, 100ms, 300ms
+    tryRecalc();
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(tryRecalc);
+    setTimeout(tryRecalc, 100);
+    setTimeout(tryRecalc, 300);
+  };
 
-    // On mount and after images load
-    const t = setTimeout(recalc, 50);
-
-    // Recalc when tab becomes visible again
-    const onVis = () => document.visibilityState === 'visible' && recalc();
+  // Force slick to recalc when the carousel mounts or images change
+  useEffect(() => {
+    const t = setTimeout(ensureLayout, 50);
+    const onVis = () => document.visibilityState === 'visible' && ensureLayout();
     document.addEventListener('visibilitychange', onVis);
-
-    // Cleanup
     return () => {
       clearTimeout(t);
       document.removeEventListener('visibilitychange', onVis);
@@ -79,13 +81,19 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
 
   // When the section becomes active, ensure slick is laid out
   useEffect(() => {
-    if (isActive) {
-      try {
-        if (sliderRef.current) sliderRef.current.slickGoTo(0, true);
-        window.dispatchEvent(new Event('resize'));
-      } catch (_) {}
-    }
+    if (isActive) ensureLayout();
   }, [isActive]);
+
+  // Recalc when the container becomes visible via IntersectionObserver
+  useEffect(() => {
+    if (!containerRef.current || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver((entries) => {
+      const e = entries[0];
+      if (e && e.isIntersecting) ensureLayout();
+    }, { root: null, threshold: 0.2 });
+    obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, []);
 
   // Slick settings
   const settings = {
@@ -131,8 +139,19 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
         }
       }
     ],
-    className: "certificate-slider"
+    className: "certificate-slider",
+    onInit: ensureLayout,
+    afterChange: ensureLayout
   };
+
+  if (!slides || slides.length === 0) {
+    return (
+      <div className="carousel-container" ref={containerRef}>
+        <h1>{title}</h1>
+        <p style={{ color: 'var(--muted)' }}>No projects to display.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="carousel-container" ref={containerRef}>
@@ -156,7 +175,7 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
                   <div className="card">
                     <img
                       src={src}
-                      alt={`${altPrefix} ${i + 1}`}
+                      alt={meta[i]?.title ? meta[i].title : `${altPrefix} ${i + 1}`}
                       loading="lazy"
                       onError={() => onError(i)}
                       className="slide-image"

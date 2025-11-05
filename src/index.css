@@ -1,3 +1,52 @@
+/* Theme variables */
+:root {
+  --bg: #121212;
+  --text: #ffffff;
+  --muted: #c9c9c9;
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-border: rgba(255, 255, 255, 0.3);
+  --button-fg: #ffffff;
+  --focus-ring: #ffffff;
+  --tooltip-bg: #ffffff;
+  --tooltip-text: #3d4144;
+  --link: #ffffff;
+  --card-bg: #1e1e1e;
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --dot-neutral: rgba(255, 255, 255, 0.35);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #4a4a4a;
+  --button-bg: rgba(0, 0, 0, 0.06);
+  --button-border: rgba(0, 0, 0, 0.2);
+  --button-fg: #111111;
+  --focus-ring: #111111;
+  --tooltip-bg: #111111;
+  --tooltip-text: #f2f2f2;
+  --link: #111111;
+  --card-bg: #f4f4f4;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --dot-neutral: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #ffffff;
+  --muted: #c9c9c9;
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-border: rgba(255, 255, 255, 0.3);
+  --button-fg: #ffffff;
+  --focus-ring: #ffffff;
+  --tooltip-bg: #ffffff;
+  --tooltip-text: #3d4144;
+  --link: #ffffff;
+  --card-bg: #1e1e1e;
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --dot-neutral: rgba(255, 255, 255, 0.35);
+}
+
 html {
   height: 100%;
   overflow: auto;
@@ -11,8 +60,8 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #121212;
-    color: white;
+    background-color: var(--bg);
+    color: var(--text);
     min-height: 100%;
     box-sizing: border-box;
     text-align: center;

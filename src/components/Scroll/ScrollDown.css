@@ -11,6 +11,8 @@
     text-align: center;
     pointer-events: auto;
     cursor: pointer;
+    background: none;
+    border: 0;
     transition: all 0.4s ease;
     animation: bob-vertical 2s ease-in-out infinite;
 }
@@ -24,7 +26,7 @@
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
-    color: white;
+    color: var(--text);
     background-color: rgba(0, 0, 0, 0.6);
     padding: 5px 15px;
     border-radius: 20px;
@@ -143,5 +145,19 @@
         width: 40px;
         height: 40px;
         font-size: 20px;
+    }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-indicator {
+        animation: none;
+    }
+    .scroll-indicator .icon::before,
+    .scroll-indicator.visible {
+        animation: none;
+    }
+    .scroll-indicator:hover {
+        transform: translateX(-50%);
     }
 }

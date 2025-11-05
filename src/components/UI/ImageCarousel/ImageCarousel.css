@@ -6,7 +6,7 @@
 .card {
     border-radius: 12px;
     overflow: hidden;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg, #1e1e1e);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--overlay-bg, rgba(0, 0, 0, 0.6));
     padding: 20px;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -40,9 +40,9 @@
 
 .view-button,
 .card-overlay button {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid white;
+    background-color: var(--button-bg);
+    color: var(--text);
+    border: 2px solid var(--text);
     border-radius: 25px;
     padding: 8px 24px;
     font-size: 14px;
@@ -62,7 +62,7 @@
     align-items: center;
     width: 100%;
     height: 300px;
-    background-color: #252525;
+    background-color: var(--card-bg, #252525);
     border: 1px dashed #555;
     border-radius: 8px;
 }
@@ -79,7 +79,7 @@
     border: none;
     width: 48px;
     height: 48px;
-    color: white;
+    color: var(--text);
     cursor: pointer;
     z-index: 10;
     position: absolute;
@@ -132,6 +132,7 @@
 
 .slider-wrapper {
     touch-action: pan-x;
+    min-width: 0; /* ensure flex children can shrink properly */
 }
 
 .card-overlay h3,

@@ -9,7 +9,7 @@
 .button {
     width: 60px;
     height: 60px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--button-bg);
     border-radius: 18px;
     position: relative;
     -webkit-box-shadow: 0px 0px 0px 2px transparent;
@@ -19,21 +19,23 @@
 
 .button:hover, .button:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.34);
-    -webkit-box-shadow: 0px 0px 0px 4px white;
-    -moz-box-shadow: 0px 0px 0px 4px white;
-    box-shadow: 0px 0px 0px 4px white;
+    background-color: var(--button-bg);
+    -webkit-box-shadow: 0px 0px 0px 4px var(--focus-ring);
+    -moz-box-shadow: 0px 0px 0px 4px var(--focus-ring);
+    box-shadow: 0px 0px 0px 4px var(--focus-ring);
     opacity: 1;
     transition: 0.2s ease;
 }
 
-.button:hover .tooltiptext {
+.button:hover .tooltiptext,
+.button:focus .tooltiptext,
+.button:focus-visible .tooltiptext {
     opacity: 1; /* Show the tooltip when the button is hovered */
 }
 
 .tooltiptext {
-    background-color: white;
-    color: #3d4144;
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-text);
     font-family: DM Sans, sans-serif;
     font-weight: 500;
     font-size: 14px;
@@ -58,7 +60,7 @@
 }
 
 .placeholder {
-    color: white;
+    color: var(--text);
     font-size: 28px;
     width: 60px;
     height: 60px;
@@ -72,7 +74,7 @@
 
 .workBadge {
     margin-top: 40px;
-    color: white;
+    color: var(--text);
     font-family: DM Sans, sans-serif;
     font-weight: 500;
     font-size: 11px;
@@ -84,7 +86,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    border: 1px solid white;
+    border: 1px solid var(--text);
     width: fit-content;
     display: inline;
     border-radius: 40px;
@@ -96,13 +98,13 @@
 
 .uc_link{
     text-decoration: none;
-    color: white;
+    color: var(--link);
 }
 
 .uc_link:hover{
-    -webkit-box-shadow: 0px 2px 0px 0px white;
-    -moz-box-shadow: 0px 2px 0px 0px white;
-    box-shadow: 0px 2px 0px 0px white;
+    -webkit-box-shadow: 0px 2px 0px 0px var(--text);
+    -moz-box-shadow: 0px 2px 0px 0px var(--text);
+    box-shadow: 0px 2px 0px 0px var(--text);
     opacity: 1;
     transition: 0.2s ease;
     cursor: pointer;

@@ -9,6 +9,7 @@ A modern, responsive online portfolio showcasing my projects, certificates, and 
 - Certificates display
 - Social media links with tooltips
 - Responsive design for all devices
+- Light/Dark theme with system preference + toggle
 
 ## Technologies Used
 
@@ -65,6 +66,7 @@ src/
 - `npm run deploy` - Deploys the app to GitHub Pages
 - `npm run update-browserslist` - Updates the browserslist database
 - `npm run audit-fix` - Runs npm audit fix to address vulnerabilities
+- `npm run optimize-images` - Converts images to WebP and optimizes originals (requires dev dep `sharp`)
 
 ## Deployment
 
