@@ -17,20 +17,26 @@
     box-shadow: 0px 0px 0px 2px transparent;
 }
 
-.button:hover, .button:focus {
+.button:hover {
     outline: none;
     background-color: var(--button-bg);
+    opacity: 1;
+    transition: 0.2s ease;
+}
+
+/* Consistent, keyboard-only focus ring */
+.button:focus-visible {
+    outline: none;
     -webkit-box-shadow: 0px 0px 0px 4px var(--focus-ring);
     -moz-box-shadow: 0px 0px 0px 4px var(--focus-ring);
     box-shadow: 0px 0px 0px 4px var(--focus-ring);
-    opacity: 1;
-    transition: 0.2s ease;
 }
 
 .button:hover .tooltiptext,
 .button:focus .tooltiptext,
 .button:focus-visible .tooltiptext {
-    opacity: 1; /* Show the tooltip when the button is hovered */
+    opacity: 1; /* Show tooltip on hover and focus */
+    transform: translateY(0);
 }
 
 .tooltiptext {
@@ -57,6 +63,15 @@
     margin-left: -72%;
     /* visibility: hidden; */
     opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .button,
+    .tooltiptext {
+        transition: none !important;
+    }
 }
 
 .placeholder {

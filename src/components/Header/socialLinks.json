@@ -1,0 +1,34 @@
+[
+  {
+    "key": "email",
+    "href": "mailto:carinotj19@gmail.com",
+    "ariaLabel": "Email TJ",
+    "buttonClass": "b1",
+    "tooltip": "Reach out",
+    "icon": ["fas", "paper-plane"]
+  },
+  {
+    "key": "resume",
+    "href": "https://drive.google.com/file/d/1Ce4KU_GhiHrdWfJOP_futilsJWqcloCP/view",
+    "ariaLabel": "View resume (opens in new tab)",
+    "buttonClass": "b2",
+    "tooltip": "Resume",
+    "icon": ["fas", "paperclip"]
+  },
+  {
+    "key": "github",
+    "href": "https://github.com/carinotj19",
+    "ariaLabel": "Open TJ's GitHub profile",
+    "buttonClass": "b3",
+    "tooltip": "GitHub",
+    "icon": ["fab", "github"]
+  },
+  {
+    "key": "linkedin",
+    "href": "https://www.linkedin.com/in/tj-carino/",
+    "ariaLabel": "Open TJ's LinkedIn profile",
+    "buttonClass": "b5",
+    "tooltip": "LinkedIn",
+    "icon": ["fab", "linkedin-in"]
+  }
+]

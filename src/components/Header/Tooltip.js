@@ -1,7 +1,18 @@
-function Tooltip({ children }) {
-    // Tooltip visibility is controlled purely by CSS using .button:hover .tooltiptext
-    // We just render the tooltip content directly to keep DOM minimal and styling predictable.
-    return children;
+import React, { useId } from "react";
+
+function Tooltip({ id, className = "", children }) {
+    const reactId = useId();
+    const tooltipId = id ?? `tooltip-${reactId}`;
+
+    return (
+        <span
+            id={tooltipId}
+            role="tooltip"
+            className={`tooltiptext${className ? " " + className : ""}`}
+        >
+            {children}
+        </span>
+    );
 }
 
 export default Tooltip;
