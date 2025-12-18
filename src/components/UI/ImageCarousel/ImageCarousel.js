@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,6 +25,7 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
   const touchStart = useRef({ x: 0, y: 0 });
   const sliderRef = useRef(null);
   const containerRef = useRef(null);
+  const lastSize = useRef({ width: 0, height: 0 });
   // If fewer than 5 slides, duplicate for better loop behavior
   const slides = images.length < 5 ? [...images, ...images] : images;
   const meta = metadata
@@ -51,7 +52,7 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
   };
 
   // Robust relayout function for react-slick in hidden containers
-  const ensureLayout = () => {
+  const ensureLayout = useCallback(() => {
     const tryRecalc = () => {
       if (!sliderRef.current) return;
       try { sliderRef.current.slickGoTo(0, true); } catch (_) {}
@@ -66,7 +67,7 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
     if (typeof requestAnimationFrame === 'function') requestAnimationFrame(tryRecalc);
     setTimeout(tryRecalc, 100);
     setTimeout(tryRecalc, 300);
-  };
+  }, []);
 
   // Force slick to recalc when the carousel mounts or images change
   useEffect(() => {
@@ -77,12 +78,12 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
       clearTimeout(t);
       document.removeEventListener('visibilitychange', onVis);
     };
-  }, [images.length]);
+  }, [images.length, ensureLayout]);
 
   // When the section becomes active, ensure slick is laid out
   useEffect(() => {
     if (isActive) ensureLayout();
-  }, [isActive]);
+  }, [isActive, ensureLayout]);
 
   // Recalc when the container becomes visible via IntersectionObserver
   useEffect(() => {
@@ -93,7 +94,24 @@ const ImageCarousel = ({ title, images = [], altPrefix, metadata, isActive }) =>
     }, { root: null, threshold: 0.2 });
     obs.observe(containerRef.current);
     return () => obs.disconnect();
-  }, []);
+  }, [ensureLayout]);
+
+  // Recalc when the container finally receives a size (helps on first paint)
+  useEffect(() => {
+    if (!containerRef.current || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry || !entry.contentRect) return;
+      const { width, height } = entry.contentRect;
+      const prev = lastSize.current;
+      if (width > 0 && height > 0 && (width !== prev.width || height !== prev.height)) {
+        lastSize.current = { width, height };
+        ensureLayout();
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [ensureLayout]);
 
   // Slick settings
   const settings = {

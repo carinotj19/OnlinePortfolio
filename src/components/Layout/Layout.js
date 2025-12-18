@@ -28,6 +28,7 @@ const Layout = ({ children, currentPage, onPageChange }) => {
         customPageNumber={currentPage}
         onBeforePageScroll={onPageChange}
         pageOnChange={onPageChange}
+        renderAllPagesOnFirstRender
       >
         {React.Children.map(children, (child, idx) => (
           <SectionContainer key={idx}>

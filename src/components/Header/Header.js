@@ -14,16 +14,16 @@ function Header() {
                 <br />
                 <br />
                 <h3>
-                    3rd Year Student in Computer Science
+                    Web Developer
                     <br />
-                    at{" "}
+                    @{" "}
                     <a
-                        href="https://www.uc-bcf.edu.ph"
+                        href="https://www.pixelmotion.com/"
                         target="_blank"
                         rel="noreferrer"
-                        className="uc_link"
+                        className="position_link"
                     >
-                        University of the Cordilleras
+                        Pixel Motion
                     </a>
                 </h3>
             </div>

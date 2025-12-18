@@ -132,6 +132,7 @@
 
 .slider-wrapper {
     touch-action: pan-x;
+    min-height: 320px;
     min-width: 0; /* ensure flex children can shrink properly */
 }
 
