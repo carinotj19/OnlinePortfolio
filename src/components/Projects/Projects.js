@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import ImageCarousel from "../UI/ImageCarousel/ImageCarousel";
+import MediaGrid from "../UI/MediaGrid/MediaGrid";
 import manifest from "../../assets/Projects/manifest";
 
 function Projects({ isActive }) {
@@ -47,16 +47,25 @@ function Projects({ isActive }) {
             return { images: [], metadata: [] };
         }
     }, []);
+    const items = useMemo(() => (
+        images.map((src, index) => {
+            const meta = metadata[index] || {};
+            return {
+                src,
+                title: meta.title || "",
+                url: meta.url || ""
+            };
+        })
+    ), [images, metadata]);
+
     return (
-        <div className="projects-section">
-            <ImageCarousel
-                title="Projects"
-                images={images}
-                metadata={metadata}
-                altPrefix="Project"
-                isActive={isActive}
-            />
-        </div>
+        <MediaGrid
+            title="Projects"
+            items={items}
+            altPrefix="Project"
+            isActive={isActive}
+            className="projects-section"
+        />
     );
 }
 

@@ -82,8 +82,8 @@ code {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 0;
-    overflow: visible !important;
+    padding: 1.5rem 0;
+    overflow: hidden;
 }
 
 .section-content {
@@ -93,9 +93,9 @@ code {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    padding-top: 80px;
-    padding-bottom: 120px;
-    overflow: visible !important;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    overflow: hidden;
 }
 
 /* Apply specific styles when section is active */
