@@ -9,6 +9,7 @@ import jsDrumkit from './Javascript Drumkit.png';
 import simpleClock from './Simple Clock.png';
 import simpleBlackjack from './Simple Black Jack.png';
 import smartJobTracker from './Smart Job Tracker.png';
+import cabkit3D from './CabKit3D.png';
 
 const projects = [
   { src: smartJobTracker, title: 'Smart Job Tracker', url: 'https://github.com/carinotj19/job-tracker' },
@@ -20,6 +21,7 @@ const projects = [
   { src: simpleBlackjack, title: 'Simple Black Jack', url: 'https://github.com/carinotj19/Blackjack' },
   { src: jeepney, title: 'Jeepney Streamlit Application', url: 'https://jeepney-routing-system.streamlit.app/' },
   { src: responsiveWeb, title: 'Responsive Web Design', url: 'https://github.com/carinotj19/Bootstrap-Responsive-Website' },
+  { src: cabkit3D, title: 'CabKit3D', url: 'https://carinotj19.github.io/CabKit3D/' },
 ];
 
 export default projects;
