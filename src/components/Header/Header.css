@@ -36,7 +36,7 @@
 .button:focus .tooltiptext,
 .button:focus-visible .tooltiptext {
     opacity: 1; /* Show tooltip on hover and focus */
-    transform: translateY(0);
+    transform: translate(-50%, 0);
 }
 
 .tooltiptext {
@@ -49,6 +49,7 @@
     line-height: 1.2em;
     padding: 10px 12px;
     border-radius: 100px;
+    white-space: nowrap;
     text-decoration: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -56,14 +57,14 @@
     user-select: none;
     pointer-events: none;
     position: absolute;
-    width: 90px;
+    width: auto;
     z-index: 0;
     top: 100%;
-    margin-top: 20px;
-    margin-left: -72%;
+    left: 50%;
+    margin-top: 16px;
     /* visibility: hidden; */
     opacity: 0;
-    transform: translateY(4px);
+    transform: translate(-50%, 4px);
     transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
