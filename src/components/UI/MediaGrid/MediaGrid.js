@@ -17,6 +17,16 @@ const MediaGrid = ({
 
   const safeItems = useMemo(() => items.filter(item => item && item.src), [items]);
 
+  const getActionUrls = item => {
+    if (!item) return { repo: "", demo: "" };
+    const repo = item.repo || item.repoUrl || "";
+    const demo = item.demo || item.demoUrl || "";
+    if (!repo && !demo && item.url) {
+      return { repo: item.url, demo: "" };
+    }
+    return { repo, demo };
+  };
+
   useEffect(() => {
     if (!isActive && activeIndex !== null) {
       setActiveIndex(null);
@@ -46,6 +56,7 @@ const MediaGrid = ({
   }, [activeIndex, safeItems]);
 
   const activeItem = activeIndex !== null ? safeItems[activeIndex] : null;
+  const activeActions = getActionUrls(activeItem);
 
   const getLabel = (item, index) => {
     const candidate = item && item.title ? String(item.title).trim() : "";
@@ -105,6 +116,7 @@ const MediaGrid = ({
             <div className="media-grid">
               {safeItems.map((item, index) => {
                 const label = getLabel(item, index);
+                const { repo, demo } = getActionUrls(item);
                 return (
                   <div key={item.id ?? index} className="media-card">
                     <button
@@ -127,14 +139,24 @@ const MediaGrid = ({
                         >
                           Preview
                         </button>
-                        {item.url && (
+                        {repo && (
                           <a
                             className="media-link"
-                            href={item.url}
+                            href={repo}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            View Repo
+                            Repo
+                          </a>
+                        )}
+                        {demo && (
+                          <a
+                            className="media-link"
+                            href={demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Demo
                           </a>
                         )}
                       </div>
@@ -188,14 +210,24 @@ const MediaGrid = ({
                 >
                   Open Image
                 </button>
-                {activeItem.url && (
+                {activeActions.repo && (
                   <a
                     className="media-link"
-                    href={activeItem.url}
+                    href={activeActions.repo}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    View Repo
+                    Repo
+                  </a>
+                )}
+                {activeActions.demo && (
+                  <a
+                    className="media-link"
+                    href={activeActions.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Demo
                   </a>
                 )}
               </div>
