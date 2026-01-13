@@ -41,6 +41,8 @@ const Layout = ({ children, currentPage, onPageChange }) => {
     onPageChange(pageNumber);
   };
 
+  const blockScroll = isMobile;
+
   return (
     <div className="layout-container">
       <ForwardRefPageScroller
@@ -49,8 +51,8 @@ const Layout = ({ children, currentPage, onPageChange }) => {
         onBeforePageScroll={onPageChange}
         pageOnChange={onPageChange}
         renderAllPagesOnFirstRender
-        blockScrollUp={isMobile}
-        blockScrollDown={isMobile}
+        blockScrollUp={blockScroll}
+        blockScrollDown={blockScroll}
       >
         {React.Children.map(children, (child, idx) => (
           <SectionContainer key={idx}>

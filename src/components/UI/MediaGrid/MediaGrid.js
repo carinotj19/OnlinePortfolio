@@ -14,6 +14,8 @@ const MediaGrid = ({
   const [activeIndex, setActiveIndex] = useState(null);
   const scrollRef = useRef(null);
   const touchStart = useRef({ x: 0, y: 0 });
+  const scrollGuard = useRef({ direction: null, lastAt: 0 });
+  const scrollGuardDelayMs = 300;
 
   const safeItems = useMemo(() => items.filter(item => item && item.src), [items]);
 
@@ -77,9 +79,29 @@ const MediaGrid = ({
 
   const handleWheel = event => {
     const el = scrollRef.current;
-    if (canScroll(el, event.deltaY)) {
+    if (!el) return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    if (scrollHeight <= clientHeight) return;
+    const deltaY = event.deltaY;
+    if (!deltaY) return;
+    if (canScroll(el, deltaY)) {
+      scrollGuard.current = { direction: null, lastAt: 0 };
       event.stopPropagation();
+      return;
     }
+    const direction = deltaY > 0 ? "down" : "up";
+    const atTop = scrollTop <= 0;
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+    const atEdge = direction === "down" ? atBottom : atTop;
+    if (!atEdge) return;
+    const now = Date.now();
+    const guard = scrollGuard.current;
+    if (guard.direction === direction && now - guard.lastAt > scrollGuardDelayMs) {
+      scrollGuard.current = { direction: null, lastAt: 0 };
+      return;
+    }
+    scrollGuard.current = { direction, lastAt: now };
+    event.stopPropagation();
   };
 
   const handleTouchStart = event => {
