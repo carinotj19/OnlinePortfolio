@@ -1,10 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SectionContainer } from "react-page-scroller";
 import ForwardRefPageScroller from "./ForwardRefPageScroller";
 import "./Layout.css";
 
 const Layout = ({ children, currentPage, onPageChange }) => {
   const scrollerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return undefined;
+    const mq = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    if (mq.addEventListener) {
+      mq.addEventListener("change", update);
+    } else {
+      mq.addListener(update);
+    }
+    return () => {
+      if (mq.removeEventListener) {
+        mq.removeEventListener("change", update);
+      } else {
+        mq.removeListener(update);
+      }
+    };
+  }, []);
 
   // Whenever App.activeSection changes, move the scroller
   useEffect(() => {
@@ -29,6 +49,8 @@ const Layout = ({ children, currentPage, onPageChange }) => {
         onBeforePageScroll={onPageChange}
         pageOnChange={onPageChange}
         renderAllPagesOnFirstRender
+        blockScrollUp={isMobile}
+        blockScrollDown={isMobile}
       >
         {React.Children.map(children, (child, idx) => (
           <SectionContainer key={idx}>

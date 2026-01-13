@@ -12,6 +12,8 @@
     max-height: calc(100vh - 160px);
     overflow-y: auto;
     overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
     padding: 12px 0;
 }
 
@@ -222,12 +224,37 @@
 }
 
 @media (max-width: 768px) {
+    .media-section {
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 12px 0;
+    }
+
+    .media-scroll-area {
+        max-height: 100%;
+        padding: 8px 0 16px;
+    }
+
     .media-container {
         padding: 32px 20px 48px;
     }
 
     .media-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(240px, 78vw);
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 4px 16px 12px;
+        scroll-snap-type: x proximity;
+        scroll-padding: 16px;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+    }
+
+    .media-card {
+        scroll-snap-align: start;
     }
 }
 

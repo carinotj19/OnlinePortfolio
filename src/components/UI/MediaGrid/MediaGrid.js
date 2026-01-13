@@ -13,7 +13,7 @@ const MediaGrid = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(null);
   const scrollRef = useRef(null);
-  const touchStartY = useRef(0);
+  const touchStart = useRef({ x: 0, y: 0 });
 
   const safeItems = useMemo(() => items.filter(item => item && item.src), [items]);
 
@@ -84,13 +84,21 @@ const MediaGrid = ({
 
   const handleTouchStart = event => {
     if (event.touches && event.touches.length) {
-      touchStartY.current = event.touches[0].clientY;
+      touchStart.current = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY
+      };
     }
   };
 
   const handleTouchMove = event => {
     if (!event.touches || event.touches.length !== 1) return;
-    const deltaY = touchStartY.current - event.touches[0].clientY;
+    const deltaX = Math.abs(event.touches[0].clientX - touchStart.current.x);
+    const deltaY = touchStart.current.y - event.touches[0].clientY;
+    if (deltaX > Math.abs(deltaY)) {
+      event.stopPropagation();
+      return;
+    }
     const el = scrollRef.current;
     if (canScroll(el, deltaY)) {
       event.stopPropagation();
@@ -117,6 +125,7 @@ const MediaGrid = ({
               {safeItems.map((item, index) => {
                 const label = getLabel(item, index);
                 const { repo, demo } = getActionUrls(item);
+                const hasActions = Boolean(repo || demo);
                 return (
                   <div key={item.id ?? index} className="media-card">
                     <button
@@ -129,38 +138,35 @@ const MediaGrid = ({
                         <img src={item.src} alt={label} loading="lazy" />
                       </div>
                     </button>
-                    <div className="media-meta">
-                      {item.title && <h3 className="media-card-title">{item.title}</h3>}
-                      <div className="media-actions">
-                        <button
-                          type="button"
-                          className="media-button"
-                          onClick={() => setActiveIndex(index)}
-                        >
-                          Preview
-                        </button>
-                        {repo && (
-                          <a
-                            className="media-link"
-                            href={repo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Repo
-                          </a>
-                        )}
-                        {demo && (
-                          <a
-                            className="media-link"
-                            href={demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Demo
-                          </a>
+                    {(item.title || hasActions) && (
+                      <div className="media-meta">
+                        {item.title && <h3 className="media-card-title">{item.title}</h3>}
+                        {hasActions && (
+                          <div className="media-actions">
+                            {repo && (
+                              <a
+                                className="media-link"
+                                href={repo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Repo
+                              </a>
+                            )}
+                            {demo && (
+                              <a
+                                className="media-link"
+                                href={demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Demo
+                              </a>
+                            )}
+                          </div>
                         )}
                       </div>
-                    </div>
+                    )}
                   </div>
                 );
               })}
@@ -200,37 +206,30 @@ const MediaGrid = ({
                   alt={getLabel(activeItem, activeIndex)}
                 />
               </div>
-              <div className="media-lightbox-actions">
-                <button
-                  type="button"
-                  className="media-button"
-                  onClick={() =>
-                    window.open(activeItem.src, "_blank", "noopener,noreferrer")
-                  }
-                >
-                  Open Image
-                </button>
-                {activeActions.repo && (
-                  <a
-                    className="media-link"
-                    href={activeActions.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Repo
-                  </a>
-                )}
-                {activeActions.demo && (
-                  <a
-                    className="media-link"
-                    href={activeActions.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Demo
-                  </a>
-                )}
-              </div>
+              {(activeActions.repo || activeActions.demo) && (
+                <div className="media-lightbox-actions">
+                  {activeActions.repo && (
+                    <a
+                      className="media-link"
+                      href={activeActions.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Repo
+                    </a>
+                  )}
+                  {activeActions.demo && (
+                    <a
+                      className="media-link"
+                      href={activeActions.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Demo
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>,
           document.body
