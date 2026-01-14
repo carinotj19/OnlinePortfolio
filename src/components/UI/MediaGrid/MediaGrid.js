@@ -65,6 +65,13 @@ const MediaGrid = ({
     return candidate ? candidate : `${altPrefix} ${index + 1}`;
   };
 
+  const getDescription = item => {
+    const candidate = item && item.description ? String(item.description).trim() : "";
+    return candidate;
+  };
+
+  const activeDescription = activeItem ? getDescription(activeItem) : "";
+
   // Allow native scroll inside the grid without triggering page-scroller jumps
   const canScroll = (el, deltaY) => {
     if (!el) return false;
@@ -223,10 +230,19 @@ const MediaGrid = ({
                 </button>
               </div>
               <div className="media-lightbox-image">
-                <img
-                  src={activeItem.src}
-                  alt={getLabel(activeItem, activeIndex)}
-                />
+                <div className="media-lightbox-figure">
+                  <img
+                    src={activeItem.src}
+                    alt={getLabel(activeItem, activeIndex)}
+                  />
+                  {activeDescription && (
+                    <div className="media-lightbox-caption">
+                      <p className="media-lightbox-caption-text">
+                        {activeDescription}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
               {(activeActions.repo || activeActions.demo) && (
                 <div className="media-lightbox-actions">

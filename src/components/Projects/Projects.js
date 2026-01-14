@@ -13,6 +13,7 @@ const normalizeItems = (entries = []) =>
             const title = entry.title || "";
             const repo = entry.repo || entry.repoUrl;
             const demo = entry.demo || entry.demoUrl;
+            const description = entry.description || entry.summary || "";
             const fallbackUrl = entry.url;
 
             const repoUrl = repo || (fallbackUrl && isRepoLink(fallbackUrl) ? fallbackUrl : "");
@@ -23,7 +24,8 @@ const normalizeItems = (entries = []) =>
                 src: entry.src,
                 title,
                 repo: repoUrl,
-                demo: demoUrl
+                demo: demoUrl,
+                description
             };
         })
         .filter(Boolean);
