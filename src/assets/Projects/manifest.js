@@ -50,7 +50,7 @@ const projects = [
   {
     src: jeepney,
     title: 'Jeepney Streamlit Application',
-    description: 'Route planner interface for Manila jeepney lines.',
+    description: 'Route planner interface for Baguio City jeepney lines.',
     demo: 'https://jeepney-routing-system.streamlit.app/'
   },
   {
@@ -70,21 +70,21 @@ const projects = [
   {
     src: analogClock,
     title: 'Analog Clock',
-    description: 'Polished HTML/CSS/JS analog clock with smooth motion, digital readout, and time-of-day backgrounds.',
+    description: 'CSS and JS analog clock with smooth ticking hands.',
     repo: 'https://github.com/carinotj19/CSS_JS_Clock',
     demo: 'https://carinotj19.github.io/CSS_JS_Clock/'
   },
   {
     src: blackjack,
     title: 'Black Jack',
-    description: 'Browser-based HTML/CSS/JS Blackjack game with deal, hit, stand, and win/lose logic.',
+    description: 'Browser blackjack game with simple betting flow.',
     repo: 'https://github.com/carinotj19/Blackjack',
     demo: 'https://carinotj19.github.io/Blackjack/'
   },
   {
     src: basketballScoreboard,
     title: 'Basketball Scoreboard',
-    description: 'Browser-based scoreboard with live home/guest scoring, leader highlights, and reset flow.',
+    description: 'Scoreboard app with timers and score controls.',
     repo: 'https://github.com/carinotj19/Basketball-scoreboard',
     demo: 'https://carinotj19.github.io/Basketball-scoreboard/'
   },
