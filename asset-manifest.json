@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/OnlinePortfolio/static/css/main.a4ec7982.css",
-    "main.js": "/OnlinePortfolio/static/js/main.4be01dc9.js",
+    "main.js": "/OnlinePortfolio/static/js/main.4ffd7962.js",
     "static/js/453.c6a9083d.chunk.js": "/OnlinePortfolio/static/js/453.c6a9083d.chunk.js",
     "static/media/Catholic School Website.png": "/OnlinePortfolio/static/media/Catholic School Website.272c6cbec8a50ea6ec37.png",
     "static/media/Javascript Drumkit.png": "/OnlinePortfolio/static/media/Javascript Drumkit.9ef1f9414d24d18d93ef.png",
@@ -13,11 +13,13 @@
     "static/media/Black Jack.png": "/OnlinePortfolio/static/media/Black Jack.8118e6ece0c79506c17e.png",
     "static/media/Using AI as Your SEO Assistant.jpg": "/OnlinePortfolio/static/media/Using AI as Your SEO Assistant.024a81ed0c07c1837610.jpg",
     "static/media/Develop Your SEO Skills.jpg": "/OnlinePortfolio/static/media/Develop Your SEO Skills.76060060c8adbcd88bb4.jpg",
+    "static/media/Search Techniques for Web Developers.jpg": "/OnlinePortfolio/static/media/Search Techniques for Web Developers.8c7c2439d0d630aacc61.jpg",
     "static/media/SEO Content Writing.jpg": "/OnlinePortfolio/static/media/SEO Content Writing.0a65ccb95509f6834b6e.jpg",
     "static/media/SEO Keyword Strategy.jpg": "/OnlinePortfolio/static/media/SEO Keyword Strategy.d8da69b39ec468eb1776.jpg",
     "static/media/SEO Strategy Link Building.jpg": "/OnlinePortfolio/static/media/SEO Strategy Link Building.7a1349acea313da77131.jpg",
     "static/media/Marketing Tools SEO.jpg": "/OnlinePortfolio/static/media/Marketing Tools SEO.189f145560ddbb9957ec.jpg",
     "static/media/CSS Essential Training 2023.jpg": "/OnlinePortfolio/static/media/CSS Essential Training 2023.376060186bfedd40e6f1.jpg",
+    "static/media/HTML Essential Training.jpg": "/OnlinePortfolio/static/media/HTML Essential Training.c8089aed37a5dda69e90.jpg",
     "static/media/Learning YouTube SEO.jpg": "/OnlinePortfolio/static/media/Learning YouTube SEO.c24db14962fcc3b816a3.jpg",
     "static/media/JavaScript Essential Training.jpg": "/OnlinePortfolio/static/media/JavaScript Essential Training.bc1bf05eca177fb5da65.jpg",
     "static/media/SEO Foundations.jpg": "/OnlinePortfolio/static/media/SEO Foundations.a21df681b9c0e1092c47.jpg",
@@ -32,11 +34,11 @@
     "static/media/GDP Baguio.png": "/OnlinePortfolio/static/media/GDP Baguio.82dab6b36c3e09a19e23.png",
     "index.html": "/OnlinePortfolio/index.html",
     "main.a4ec7982.css.map": "/OnlinePortfolio/static/css/main.a4ec7982.css.map",
-    "main.4be01dc9.js.map": "/OnlinePortfolio/static/js/main.4be01dc9.js.map",
+    "main.4ffd7962.js.map": "/OnlinePortfolio/static/js/main.4ffd7962.js.map",
     "453.c6a9083d.chunk.js.map": "/OnlinePortfolio/static/js/453.c6a9083d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a4ec7982.css",
-    "static/js/main.4be01dc9.js"
+    "static/js/main.4ffd7962.js"
   ]
 }
