@@ -21,6 +21,12 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
+# ===== url checker runtime data =====
+/url-checker/url-checker-state.json
+/url-checker/url-checker-state.json.tmp
+/url-checker/backups/
+/url-checker/exports/
+
 # ===== IDE & editor =====
 .vscode/
 .idea/
