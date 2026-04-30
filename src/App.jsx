@@ -740,6 +740,12 @@ function Icon({ name, size = 16, className = '', strokeWidth = 1.8, title, style
         <path d="M9 7h8v8" />
       </>
     ),
+    eye: (
+      <>
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
     download: (
       <>
         <path d="M12 3v12" />
@@ -1029,9 +1035,9 @@ export default function App() {
           <div className="parameter-item"><Icon name="mail" size={15} /><span>Full-time / freelance</span></div>
         </div>
         <div className="parameter-actions">
-          <a className="cv-download" href={`${import.meta.env.BASE_URL}TJ-Carino-CV.pdf`} download>
-            <Icon name="download" size={15} />
-            Download CV
+          <a className="cv-download" href="https://docs.google.com/document/d/1NVLOvRXVrzIDLYaTdKZ2ij5ZFrw5IqnCKG9sDQFVmDM/edit?usp=sharing" target="_blank" rel="noreferrer">
+            <Icon name="eye" size={15} />
+            View CV
           </a>
         </div>
       </div>
