@@ -2,6 +2,9 @@
 
 A modern, responsive online portfolio showcasing my projects, certificates, and experience as a Software Developer.
 
+## Preview
+https://carinotj19.github.io/OnlinePortfolio/
+
 ## Features
 
 - Full-page scrolling interface
