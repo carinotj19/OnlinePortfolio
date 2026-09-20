@@ -408,7 +408,6 @@ img {
       transparent 22deg 30deg
     );
   filter: drop-shadow(0 7px 4px rgba(0,0,0,.35));
-  animation: gear-spin 18s linear infinite;
 }
 
 .gear::before {
@@ -435,10 +434,6 @@ img {
   border: 3px solid #151815;
 }
 
-.gear.reverse {
-  animation-direction: reverse;
-}
-
 .gear-large { --size: 190px; }
 .gear-medium { --size: 135px; }
 .gear-small { --size: 88px; }
@@ -456,10 +451,6 @@ img {
 .gear-three {
   top: 316px;
   left: 27%;
-}
-
-@keyframes gear-spin {
-  to { transform: rotate(360deg); }
 }
 
 .belt {
@@ -1365,5 +1356,226 @@ footer {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
+  }
+}
+
+
+/* Motion system ---------------------------------------------------------- */
+
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #121512;
+}
+
+.loader-door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(145deg, #303730, #1b201c);
+  background-size: 28px 28px, 28px 28px, auto;
+  border-color: #5b625b;
+  border-style: solid;
+}
+
+.loader-door::before,
+.loader-door::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(145deg, #d1aa59, #725522);
+  border: 3px solid #171a17;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.12);
+}
+
+.loader-door-left {
+  left: 0;
+  border-width: 0 4px 0 0;
+}
+
+.loader-door-right {
+  right: 0;
+  border-width: 0 0 0 4px;
+}
+
+.loader-door-left::before { top: 24px; left: 24px; }
+.loader-door-left::after { bottom: 24px; left: 24px; }
+.loader-door-right::before { top: 24px; right: 24px; }
+.loader-door-right::after { bottom: 24px; right: 24px; }
+
+.loader-core {
+  position: relative;
+  z-index: 4;
+  width: min(420px, calc(100vw - 50px));
+  padding: 24px;
+  border: 4px solid #1b1e1b;
+  outline: 3px solid var(--brass-dark);
+  background: linear-gradient(#343a35, #252a26);
+  box-shadow:
+    inset 0 0 0 2px #60685f,
+    0 30px 80px rgba(0,0,0,.5);
+  font-family: "Courier New", monospace;
+}
+
+.loader-core > span {
+  display: block;
+  color: var(--brass-light);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.loader-core > strong {
+  display: block;
+  margin-top: 14px;
+  color: var(--cream);
+  font-size: clamp(38px, 8vw, 64px);
+  line-height: .9;
+}
+
+.loader-track {
+  height: 12px;
+  margin-top: 21px;
+  padding: 2px;
+  border: 2px solid #161916;
+  background: #181b18;
+}
+
+.loader-track > span {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--brass-light) 0 15px,
+      var(--brass) 15px 29px,
+      var(--brass-dark) 29px 31px
+    );
+}
+
+.kinetic-telemetry {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 45;
+  min-width: 168px;
+  padding: 10px 12px 11px;
+  border: 2px solid #4a514a;
+  background: rgba(18, 21, 18, .82);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    inset 0 0 0 1px #181b18,
+    0 8px 24px rgba(0,0,0,.2);
+  pointer-events: none;
+  color: #9ca497;
+  font: 800 8px/1.1 "Courier New", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.kinetic-telemetry > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--brass-light);
+}
+
+.kinetic-telemetry dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 12px;
+  margin: 0;
+}
+
+.kinetic-telemetry dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-bottom: 3px;
+}
+
+.kinetic-telemetry dt,
+.kinetic-telemetry dd {
+  margin: 0;
+}
+
+.kinetic-telemetry dd {
+  color: #d5d3c3;
+}
+
+.motion-ready .machine-label::after {
+  content: " / MOTION LINKED";
+  color: var(--green);
+}
+
+.motion-ready .contraption-stage {
+  will-change: transform;
+}
+
+.motion-ready .gear,
+.motion-ready .vertical-shaft,
+.motion-ready .project-machine,
+.motion-ready .project-screen img,
+.motion-ready .advancement,
+.motion-ready .station-board {
+  will-change: transform;
+}
+
+.project-screen {
+  transform: translateZ(0);
+}
+
+.project-screen img {
+  height: 114%;
+  margin-top: -7%;
+}
+
+.section-heading,
+.logbook,
+.processing-line,
+.advancement-tree,
+.station-board {
+  transform-style: preserve-3d;
+}
+
+@media (max-width: 760px) {
+  .kinetic-telemetry {
+    right: 10px;
+    bottom: 10px;
+    min-width: 138px;
+    opacity: .78;
+  }
+}
+
+@media (max-width: 520px) {
+  .kinetic-telemetry {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader {
+    display: none !important;
+  }
+
+  .kinetic-telemetry {
+    display: none;
+  }
+
+  .project-screen img {
+    height: 100%;
+    margin-top: 0;
   }
 }
