@@ -1,5 +1,11 @@
 import React from "react";
 import projects from "./assets/Projects/manifest";
+import mozCertificate from "./assets/Certificates/Search Engine Optimization Professional Certificate by Moz.jpg";
+import technicalSeoCertificate from "./assets/Certificates/Technical SEO.jpg";
+import metaCertificate from "./assets/Certificates/Coursera Meta Course.png";
+import javascriptCertificate from "./assets/Certificates/JavaScript Essential Training.jpg";
+import htmlCertificate from "./assets/Certificates/HTML Essential Training.jpg";
+import cssCertificate from "./assets/Certificates/CSS Essential Training 2023.jpg";
 
 const projectTech = {
   "CabKit3D": ["React", "R3F", "Three.js"],
@@ -11,17 +17,37 @@ const projectTech = {
 };
 
 const featuredCertificates = [
-  "Search Engine Optimization Professional Certificate by Moz.jpg",
-  "Technical SEO.jpg",
-  "Coursera Meta Course.png",
-  "JavaScript Essential Training.jpg",
-  "HTML Essential Training.jpg",
-  "CSS Essential Training 2023.jpg"
-].map((file) => ({
-  file,
-  title: file.replace(/\.(png|jpe?g|webp)$/i, ""),
-  src: require("./assets/Certificates/" + file)
-}));
+  {
+    file: "Search Engine Optimization Professional Certificate by Moz.jpg",
+    title: "Search Engine Optimization Professional Certificate by Moz",
+    src: mozCertificate
+  },
+  {
+    file: "Technical SEO.jpg",
+    title: "Technical SEO",
+    src: technicalSeoCertificate
+  },
+  {
+    file: "Coursera Meta Course.png",
+    title: "Meta Front-End Development",
+    src: metaCertificate
+  },
+  {
+    file: "JavaScript Essential Training.jpg",
+    title: "JavaScript Essential Training",
+    src: javascriptCertificate
+  },
+  {
+    file: "HTML Essential Training.jpg",
+    title: "HTML Essential Training",
+    src: htmlCertificate
+  },
+  {
+    file: "CSS Essential Training 2023.jpg",
+    title: "CSS Essential Training",
+    src: cssCertificate
+  }
+];
 
 const socials = [
   { label: "Email", href: "mailto:carinotj19@gmail.com" },
