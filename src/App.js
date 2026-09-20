@@ -6,6 +6,7 @@ import metaCertificate from "./assets/Certificates/Coursera Meta Course.png";
 import javascriptCertificate from "./assets/Certificates/JavaScript Essential Training.jpg";
 import htmlCertificate from "./assets/Certificates/HTML Essential Training.jpg";
 import cssCertificate from "./assets/Certificates/CSS Essential Training 2023.jpg";
+import MotionExperience from "./components/MotionExperience";
 
 const projectTech = {
   "CabKit3D": ["React", "R3F", "Three.js"],
@@ -96,6 +97,7 @@ function App() {
 
   return (
     <div className="workshop-shell">
+      <MotionExperience />
       <header className="topbar">
         <a className="brand-plate" href="#workshop" aria-label="TJ Cariño workshop home">
           <span className="brand-mark">TJ</span>
