@@ -4,17 +4,24 @@ import Socials from "./Socials";
 
 function Header() {
     return (
-        <div className="container">
-            <h1>TJ is a Software Developer <br /> in Baguio City, Philippines</h1>
+        <div className="container header-container">
+            <p className="hero-kicker">TJ Cariño</p>
+            <h1>
+                Full-Stack Web Developer
+            </h1>
+            <p className="hero-stack">React · JavaScript/TypeScript · Python · REST APIs</p>
+            <p className="hero-summary">
+                Full-stack web developer with 4+ years of professional web development experience across frontend delivery, CMS platforms, APIs, and deployment.
+            </p>
+
             <Socials />
+
             <div className="current">
-                <div className="workBadge" aria-label="Current">
+                <div className="workBadge" aria-label="Current role">
                     <span>CURRENT</span>
                 </div>
-                <br />
-                <br />
                 <h3>
-                    Web Developer
+                    Frontend Developer
                     <br />
                     @{" "}
                     <a
