@@ -70,9 +70,9 @@ const MediaGrid = ({
     return candidate;
   };
 
+  const getTech = item => Array.isArray(item?.tech) ? item.tech.filter(Boolean) : [];
   const activeDescription = activeItem ? getDescription(activeItem) : "";
 
-  // Allow native scroll inside the grid without triggering page-scroller jumps
   const canScroll = (el, deltaY) => {
     if (!el) return false;
     const { scrollTop, scrollHeight, clientHeight } = el;
@@ -91,22 +91,26 @@ const MediaGrid = ({
     if (scrollHeight <= clientHeight) return;
     const deltaY = event.deltaY;
     if (!deltaY) return;
+
     if (canScroll(el, deltaY)) {
       scrollGuard.current = { direction: null, lastAt: 0 };
       event.stopPropagation();
       return;
     }
+
     const direction = deltaY > 0 ? "down" : "up";
     const atTop = scrollTop <= 0;
     const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
     const atEdge = direction === "down" ? atBottom : atTop;
     if (!atEdge) return;
+
     const now = Date.now();
     const guard = scrollGuard.current;
     if (guard.direction === direction && now - guard.lastAt > scrollGuardDelayMs) {
       scrollGuard.current = { direction: null, lastAt: 0 };
       return;
     }
+
     scrollGuard.current = { direction, lastAt: now };
     event.stopPropagation();
   };
@@ -124,10 +128,12 @@ const MediaGrid = ({
     if (!event.touches || event.touches.length !== 1) return;
     const deltaX = Math.abs(event.touches[0].clientX - touchStart.current.x);
     const deltaY = touchStart.current.y - event.touches[0].clientY;
+
     if (deltaX > Math.abs(deltaY)) {
       event.stopPropagation();
       return;
     }
+
     const el = scrollRef.current;
     if (canScroll(el, deltaY)) {
       event.stopPropagation();
@@ -153,10 +159,13 @@ const MediaGrid = ({
             <div className="media-grid">
               {safeItems.map((item, index) => {
                 const label = getLabel(item, index);
+                const description = getDescription(item);
+                const tech = getTech(item);
                 const { repo, demo } = getActionUrls(item);
                 const hasActions = Boolean(repo || demo);
+
                 return (
-                  <div key={item.id ?? index} className="media-card">
+                  <article key={item.id ?? index} className="media-card">
                     <button
                       type="button"
                       className="media-thumb-button"
@@ -167,42 +176,52 @@ const MediaGrid = ({
                         <img src={item.src} alt={label} loading="lazy" />
                       </div>
                     </button>
-                    {(item.title || hasActions) && (
-                      <div className="media-meta">
-                        {item.title && <h3 className="media-card-title">{item.title}</h3>}
-                        {hasActions && (
-                          <div className="media-actions">
-                            {repo && (
-                              <a
-                                className="media-link"
-                                href={repo}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                Repo
-                              </a>
-                            )}
-                            {demo && (
-                              <a
-                                className="media-link"
-                                href={demo}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                Demo
-                              </a>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
+
+                    <div className="media-meta">
+                      {item.title && <h3 className="media-card-title">{item.title}</h3>}
+                      {description && <p className="media-card-description">{description}</p>}
+
+                      {tech.length > 0 && (
+                        <div className="media-tech" aria-label={`${label} technologies`}>
+                          {tech.map(value => (
+                            <span className="media-tech-tag" key={value}>{value}</span>
+                          ))}
+                        </div>
+                      )}
+
+                      {hasActions && (
+                        <div className="media-actions">
+                          {repo && (
+                            <a
+                              className="media-link"
+                              href={repo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Repo
+                            </a>
+                          )}
+                          {demo && (
+                            <a
+                              className="media-link"
+                              href={demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Demo
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </article>
                 );
               })}
             </div>
           )}
         </div>
       </div>
+
       {activeItem &&
         createPortal(
           <div
@@ -229,6 +248,7 @@ const MediaGrid = ({
                   X
                 </button>
               </div>
+
               <div className="media-lightbox-image">
                 <div className="media-lightbox-figure">
                   <img
@@ -244,6 +264,7 @@ const MediaGrid = ({
                   )}
                 </div>
               </div>
+
               {(activeActions.repo || activeActions.demo) && (
                 <div className="media-lightbox-actions">
                   {activeActions.repo && (
