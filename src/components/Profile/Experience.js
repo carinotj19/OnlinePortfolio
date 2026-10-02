@@ -1,5 +1,6 @@
 import React from "react";
-import "./Profile.css";\nimport ProfileSection from "./ProfileSection";
+import "./Profile.css";
+import ProfileSection from "./ProfileSection";
 
 const roles = [
   {
@@ -38,39 +39,37 @@ const roles = [
 
 function Experience() {
   return (
-    <div className="profile-section">
-      <div className="profile-scroll-area">
-        <div className="profile-container">
-          <p className="profile-eyebrow">Professional Experience</p>
-          <h1 className="profile-title">Building and supporting production web experiences.</h1>
-          <p className="profile-lead">
-            Frontend delivery, CMS platforms, API-backed applications, deployment, and production debugging across remote teams.
-          </p>
+    <ProfileSection>
+      <div className="profile-container">
+        <p className="profile-eyebrow">Professional Experience</p>
+        <h1 className="profile-title">Building and supporting production web experiences.</h1>
+        <p className="profile-lead">
+          Frontend delivery, CMS platforms, API-backed applications, deployment, and production debugging across remote teams.
+        </p>
 
-          <div className="experience-list">
-            {roles.map((role) => (
-              <article className="experience-card" key={`${role.company}-${role.title}`}>
-                <div className="experience-heading">
-                  <div>
-                    <h2>{role.title}</h2>
-                    <p className="experience-company">{role.company}</p>
-                  </div>
-                  <div className="experience-meta">
-                    <span>{role.period}</span>
-                    <span>{role.location}</span>
-                  </div>
+        <div className="experience-list">
+          {roles.map((role) => (
+            <article className="experience-card" key={`${role.company}-${role.title}`}>
+              <div className="experience-heading">
+                <div>
+                  <h2>{role.title}</h2>
+                  <p className="experience-company">{role.company}</p>
                 </div>
-                <ul>
-                  {role.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+                <div className="experience-meta">
+                  <span>{role.period}</span>
+                  <span>{role.location}</span>
+                </div>
+              </div>
+              <ul>
+                {role.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </div>
-    </div>
+    </ProfileSection>
   );
 }
 
