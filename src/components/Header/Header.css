@@ -12,9 +12,7 @@
     background-color: var(--button-bg);
     border-radius: 18px;
     position: relative;
-    -webkit-box-shadow: 0px 0px 0px 2px transparent;
-    -moz-box-shadow: 0px 0px 0px 2px transparent;
-    box-shadow: 0px 0px 0px 2px transparent;
+    box-shadow: 0 0 0 2px transparent;
 }
 
 .button:hover {
@@ -24,18 +22,15 @@
     transition: 0.2s ease;
 }
 
-/* Consistent, keyboard-only focus ring */
 .button:focus-visible {
     outline: none;
-    -webkit-box-shadow: 0px 0px 0px 4px var(--focus-ring);
-    -moz-box-shadow: 0px 0px 0px 4px var(--focus-ring);
-    box-shadow: 0px 0px 0px 4px var(--focus-ring);
+    box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
 .button:hover .tooltiptext,
 .button:focus .tooltiptext,
 .button:focus-visible .tooltiptext {
-    opacity: 1; /* Show tooltip on hover and focus */
+    opacity: 1;
     transform: translate(-50%, 0);
 }
 
@@ -45,15 +40,11 @@
     font-family: DM Sans, sans-serif;
     font-weight: 500;
     font-size: 14px;
-    letter-spacing: 0px;
     line-height: 1.2em;
     padding: 10px 12px;
     border-radius: 100px;
     white-space: nowrap;
     text-decoration: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     pointer-events: none;
     position: absolute;
@@ -62,17 +53,9 @@
     top: 100%;
     left: 50%;
     margin-top: 16px;
-    /* visibility: hidden; */
     opacity: 0;
     transform: translate(-50%, 4px);
     transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .button,
-    .tooltiptext {
-        transition: none !important;
-    }
 }
 
 .placeholder {
@@ -84,12 +67,50 @@
     transform: translate(-50%, -50%);
     left: 50%;
     top: 70%;
-    background: rgba(0, 0, 0, 0);
+    background: transparent;
     border-radius: 30px;
 }
 
+.header-container {
+    width: min(980px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.header-container h1 {
+    max-width: 900px;
+    margin: 10px 0 18px;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+}
+
+.hero-kicker {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.hero-stack {
+    margin: 0 0 18px;
+    color: var(--text);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+}
+
+.hero-summary {
+    max-width: 760px;
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
 .workBadge {
-    margin-top: 40px;
     color: var(--text);
     font-family: DM Sans, sans-serif;
     font-weight: 500;
@@ -97,95 +118,82 @@
     letter-spacing: 0.7px;
     line-height: 1.2em;
     padding: 8px 10px;
-    margin-bottom: 12px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     border: 1px solid var(--text);
     width: fit-content;
-    display: inline;
+    display: inline-block;
     border-radius: 40px;
 }
 
 .current {
-    margin-top: 40px;
+    margin-top: 38px;
 }
 
-.position_link{
+.current h3 {
+    margin: 14px 0 0;
+    line-height: 1.5;
+}
+
+.position_link {
     text-decoration: none;
     color: var(--link);
 }
 
-.position_link:hover{
-    -webkit-box-shadow: 0px 2px 0px 0px var(--text);
-    -moz-box-shadow: 0px 2px 0px 0px var(--text);
-    box-shadow: 0px 2px 0px 0px var(--text);
+.position_link:hover {
+    box-shadow: 0 2px 0 0 var(--text);
     opacity: 1;
     transition: 0.2s ease;
     cursor: pointer;
 }
 
-.container {
-    padding: 20px;
-    margin-top: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.container h1 {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 1.2;
-    margin-bottom: 30px;
+@media (prefers-reduced-motion: reduce) {
+    .button,
+    .tooltiptext {
+        transition: none !important;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-    .container h1 {
-        font-size: 36px;
+    .header-container {
+        width: min(100% - 24px, 980px);
+        padding: 24px 12px;
     }
-    
+
     .button {
         width: 50px;
         height: 50px;
         border-radius: 15px;
     }
-    
+
     .social_buttons {
         gap: 8px;
     }
-    
+
     .current h3 {
         font-size: 16px;
     }
 }
 
 @media only screen and (max-width: 480px) {
-    .container {
-        padding: 15px;
+    .header-container h1 {
+        font-size: clamp(2.6rem, 14vw, 4.4rem);
     }
-    
-    .container h1 {
-        font-size: 28px;
-    }
-    
+
     .button {
         width: 45px;
         height: 45px;
         border-radius: 12px;
     }
-    
+
     .social_buttons {
         gap: 6px;
     }
-    
+
     .current h3 {
         font-size: 14px;
     }
-    
+
     .workBadge {
-        margin-top: 30px;
         font-size: 10px;
         padding: 6px 8px;
     }
