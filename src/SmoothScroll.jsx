@@ -54,5 +54,5 @@ export default function SmoothScroll({ children }) {
     };
   }, []);
 
-  return children;
+  return <>{children}</>;
 }
