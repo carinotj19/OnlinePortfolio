@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import ProjectsHologram from './ProjectsHologram.jsx';
+import WorkshopScene from './WorkshopScene.jsx';
+import SmoothScroll from './SmoothScroll.jsx';
 
 function CogWheel({
   x,
@@ -896,19 +897,12 @@ function SkillGroupHead({ icon, reverse = false, duration = '8s', children }) {
   );
 }
 
-function SkillItem({ icon = 'tool', level = 70, children }) {
-  const filledDots = Math.max(1, Math.min(5, Math.round(level / 20)));
-
+function SkillItem({ icon = 'tool', children }) {
   return (
     <div className="skill-item">
       <div className="skill-item-main">
         <Icon name={icon} className="skill-cog" />
         <span>{children}</span>
-        <span className="skill-rating" aria-label={`${filledDots} out of 5 proficiency`}>
-          {Array.from({ length: 5 }, (_, index) => (
-            <span key={index} className={index < filledDots ? 'filled' : ''}></span>
-          ))}
-        </span>
       </div>
     </div>
   );
@@ -946,8 +940,9 @@ export default function App() {
   };
 
   return (
-    <>
+    <SmoothScroll>
 <div className="schematic-bg"></div>
+<WorkshopScene />
 
 
 <nav>
@@ -977,16 +972,16 @@ export default function App() {
 
 
 <section id="hero">
-  <div className="hero-machinery">
-    <svg viewBox="0 0 600 700" width="100%" height="100%" style={{ position: "absolute", top: "0", right: "0" }} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <HeroMachineExtras />
-    </svg>
+  <div className="hero-machine-readout" aria-hidden="true">
+    <span>MECHANICAL NETWORK</span>
+    <strong>ASSEMBLY LINE / ONLINE</strong>
+    <small>Scroll load coupled to rotational speed</small>
   </div>
 
   <p className="hero-eyebrow"><span className="eyebrow-line"></span>available for opportunities</p>
   <h1 className="hero-name">TJ<br /><span className="hero-name-accent">Cariño</span></h1>
-  <p className="hero-title"><Icon name="gear" size={14} className="hero-title-icon" />Frontend Developer · Full-Stack Builder</p>
-  <p className="hero-sub">Crafting fast, responsive web experiences from pixel-perfect UI to full-stack platforms. Baguio City, Philippines.</p>
+  <p className="hero-title"><Icon name="gear" size={14} className="hero-title-icon" />Full-Stack Web Developer · Frontend Systems</p>
+  <p className="hero-sub">I build production web systems across responsive frontend work, CMS platforms, APIs, deployment, and interactive engineering projects. Baguio City, Philippines.</p>
   <div className="hero-actions">
     <a className="btn-primary" href="#projects">View My Work <Icon name="arrowDown" size={15} className="btn-icon" /></a>
     <a className="btn-ghost" href="https://github.com/carinotj19" target="_blank" rel="noreferrer"><Icon name="github" size={15} className="btn-icon" />GitHub</a>
@@ -994,8 +989,8 @@ export default function App() {
   <div className="hero-stats">
     <div className="stat"><div className="stat-val">4+</div><div className="stat-label">yrs experience</div></div>
     <div className="stat"><div className="stat-val">300+</div><div className="stat-label">sites managed</div></div>
-    <div className="stat"><div className="stat-val">1K+</div><div className="stat-label">tickets / month</div></div>
-    <div className="stat"><div className="stat-val">30</div><div className="stat-label">public repos</div></div>
+    <div className="stat"><div className="stat-val">3</div><div className="stat-label">professional roles</div></div>
+    <div className="stat"><div className="stat-val">2025</div><div className="stat-label">B.S. Computer Science</div></div>
   </div>
 </section>
 
@@ -1008,20 +1003,20 @@ export default function App() {
     <div className="about-text">
       <p className="section-label">about me</p>
       <h2 className="section-title">The Contraption<br />Behind the Code</h2>
-      <p>I'm a frontend-focused developer with a strong eye for UI and a knack for solving production problems at scale. I thrive in ticket-driven environments and love making complex systems feel simple.</p>
-      <p>Currently working remotely as a <strong>Frontend Developer at Pixel Motion</strong>, managing 300+ WordPress sites and resolving up to 1,100 support tickets per month. Previously built full-stack platforms at <strong>Atis Software</strong> in Amsterdam.</p>
-      <p>Finishing my <strong>B.S. in Computer Science</strong> at the University of the Cordilleras (August 2025) and open to new opportunities — full-time or freelance.</p>
+      <p>I'm a full-stack web developer with a frontend edge: responsive UI, CMS architecture, API-backed applications, deployment, and production debugging.</p>
+      <p>Currently working remotely as a <strong>Frontend Developer at Pixel Motion</strong>, maintaining production experiences across 300+ WordPress client sites. Previously shipped a React + Strapi platform and its VPS deployment at <strong>Atis Software</strong>.</p>
+      <p>I graduated with a <strong>B.S. in Computer Science</strong> from the University of the Cordilleras in August 2025. My strongest engineering work spans React, TypeScript, Python, FastAPI, Three.js, and full-stack systems.</p>
       <div className="badge-list">
-        <span className="badge">React</span><span className="badge">WordPress</span><span className="badge">JavaScript</span>
-        <span className="badge">PHP</span><span className="badge">Docker</span><span className="badge">AWS</span>
-        <span className="badge">Three.js</span><span className="badge">MongoDB</span>
+        <span className="badge">React</span><span className="badge">TypeScript</span><span className="badge">Python</span>
+        <span className="badge">FastAPI</span><span className="badge">WordPress</span><span className="badge">Docker</span>
+        <span className="badge">Three.js</span><span className="badge">PostgreSQL</span>
       </div>
     </div>
     <div className="about-stack">
       <div className="about-plate">
         <div className="plate-header"><Icon name="gear" size={13} />OPERATOR MANIFEST</div>
         <div className="plate-row"><div className="plate-key">Location</div><div className="plate-val">Baguio City, Philippines</div></div>
-        <div className="plate-row"><div className="plate-key">Degree</div><div className="plate-val">B.S. Computer Science — Univ. of the Cordilleras</div></div>
+        <div className="plate-row"><div className="plate-key">Degree</div><div className="plate-val">B.S. Computer Science — Univ. of the Cordilleras · Aug 2025</div></div>
         <div className="plate-row"><div className="plate-key">Email</div><div className="plate-val"><a href="mailto:carinotj19@gmail.com">carinotj19@gmail.com</a></div></div>
         <div className="plate-row"><div className="plate-key">GitHub</div><div className="plate-val"><a href="https://github.com/carinotj19" target="_blank" rel="noreferrer">carinotj19</a></div></div>
         <div className="plate-row"><div className="plate-key">Status</div><div className="plate-val"><span className="status-dot"></span>Open to opportunities</div></div>
@@ -1037,7 +1032,7 @@ export default function App() {
         <div className="parameter-actions">
           <a className="cv-download" href="https://docs.google.com/document/d/1NVLOvRXVrzIDLYaTdKZ2ij5ZFrw5IqnCKG9sDQFVmDM/edit?usp=sharing" target="_blank" rel="noreferrer">
             <Icon name="eye" size={15} />
-            View CV
+            View Resume
           </a>
         </div>
       </div>
@@ -1060,11 +1055,11 @@ export default function App() {
       <div className="exp-company">Pixel Motion · Costa Mesa, CA — Remote</div>
       <div className="exp-role">Frontend Developer</div>
       <div className="exp-type">Production Support</div>
-      <div className="exp-metrics"><span>300+ sites</span><span>900-1,100 tickets / month</span><span>ACF layouts</span></div>
+      <div className="exp-metrics"><span>300+ client sites</span><span>production debugging</span><span>ACF layouts</span></div>
       <ul className="exp-impact">
-        <li>Maintained a high-volume WordPress portfolio across multiple client sites.</li>
-        <li>Built responsive pages from Figma designs with flexible ACF layouts.</li>
-        <li>Resolved production support and development tickets while keeping deployments moving.</li>
+        <li>Maintained responsive production experiences across 300+ WordPress client sites.</li>
+        <li>Built pages from Figma designs using reusable ACF-powered content structures.</li>
+        <li>Debugged layout, CMS, plugin, and browser issues using DevTools and structured production troubleshooting.</li>
       </ul>
       <div className="exp-tags"><span className="tag">WordPress</span><span className="tag">HTML/CSS</span><span className="tag">JavaScript</span><span className="tag">jQuery</span><span className="tag">ACF</span><span className="tag">Figma</span></div>
     </div>
@@ -1110,45 +1105,54 @@ export default function App() {
 
 
 <section id="projects">
-  <ProjectsHologram />
+  <div className="assembly-signal" aria-hidden="true">
+    <span className="assembly-signal-dot"></span>
+    PROJECT LINE ACTIVE · HOVER A BUILD TO ROUTE OUTPUT
+  </div>
   <p className="section-label">projects</p>
   <h2 className="section-title">The Assembly Floor</h2>
   <div className="projects-grid">
-    <a className="project-card" href="https://github.com/carinotj19/CabKit3D" target="_blank" rel="noreferrer" {...projectHologramHoverProps(0)}>
+    <a className="project-card project-card-featured" href="https://github.com/carinotj19/CabKit3D" target="_blank" rel="noreferrer" {...projectHologramHoverProps(0)}>
       <ProjectIconRow icon="package" />
+      <div className="project-kicker">01 · PARAMETRIC FABRICATION</div>
       <div className="project-title">CabKit3D</div>
-      <div className="project-desc">Web-based 3D cabinet configurator with real-time customization, exploded/turntable views, live pricing, and deterministic SKU JSON &amp; BOM CSV export.</div>
-      <div className="project-tags"><span className="tag">React</span><span className="tag">Three.js</span><span className="tag">Vite</span><span className="tag">3D</span></div>
+      <div className="project-desc">Parametric 3D cabinet configurator with live pricing and validation, exploded and turntable views, local presets, deterministic SKU/BOM/GLB exports, and automated test coverage.</div>
+      <div className="project-tags"><span className="tag">React</span><span className="tag">Vite</span><span className="tag">React Three Fiber</span><span className="tag">Three.js</span></div>
     </a>
-    <a className="project-card" href="https://github.com/carinotj19/ShelterSync" target="_blank" rel="noreferrer" {...projectHologramHoverProps(1)}>
+    <a className="project-card project-card-featured" href="https://github.com/carinotj19/Stock-Sage" target="_blank" rel="noreferrer" {...projectHologramHoverProps(1)}>
+      <ProjectIconRow icon="database" />
+      <div className="project-kicker">02 · INVENTORY INTELLIGENCE</div>
+      <div className="project-title">Stock Sage</div>
+      <div className="project-desc">React + TypeScript and FastAPI inventory platform with PostgreSQL, SQLAlchemy/Alembic migrations, forecasting, reorder recommendations, competitor-price scraping, authentication, and automated tests.</div>
+      <div className="project-tags"><span className="tag">TypeScript</span><span className="tag">FastAPI</span><span className="tag">PostgreSQL</span><span className="tag">pytest</span></div>
+    </a>
+    <a className="project-card project-card-featured" href="https://github.com/carinotj19/ShelterSync" target="_blank" rel="noreferrer" {...projectHologramHoverProps(2)}>
       <ProjectIconRow icon="paw" />
+      <div className="project-kicker">03 · MULTI-ROLE WORKFLOW</div>
       <div className="project-title">ShelterSync</div>
-      <div className="project-desc">Full-stack MERN pet adoption platform enabling shelters and adopters to manage listings, adoption requests, and workflows via RESTful APIs.</div>
-      <div className="project-tags"><span className="tag">React</span><span className="tag">Node.js</span><span className="tag">MongoDB</span><span className="tag">Express</span></div>
-    </a>
-    <a className="project-card" href="https://github.com/carinotj19/BMart" target="_blank" rel="noreferrer" {...projectHologramHoverProps(2)}>
-      <ProjectIconRow icon="cart" />
-      <div className="project-title">BMart</div>
-      <div className="project-desc">Android grocery ordering app built in Kotlin with multi-vendor support, in-app messaging, and payment integration.</div>
-      <div className="project-tags"><span className="tag">Kotlin</span><span className="tag">Android</span><span className="tag">Mobile</span></div>
+      <div className="project-desc">MERN pet adoption platform with JWT authentication, multi-role workflows, CRUD/search APIs, GridFS image uploads, validation, rate limiting, and service-layer backend structure.</div>
+      <div className="project-tags"><span className="tag">React</span><span className="tag">Node.js</span><span className="tag">Express</span><span className="tag">MongoDB</span></div>
     </a>
     <a className="project-card" href="https://github.com/carinotj19/BrainyBox" target="_blank" rel="noreferrer" {...projectHologramHoverProps(3)}>
       <ProjectIconRow icon="brain" />
+      <div className="project-kicker">04 · API-DRIVEN UI</div>
       <div className="project-title">BrainyBox</div>
-      <div className="project-desc">React + Tailwind trivia app pulling live questions from Open Trivia DB. Customizable categories, difficulty, and real-time scoring.</div>
-      <div className="project-tags"><span className="tag">React</span><span className="tag">Tailwind</span><span className="tag">Open Trivia API</span></div>
+      <div className="project-desc">React trivia application integrating external question data with configurable categories, difficulty, scoring, and responsive interaction patterns.</div>
+      <div className="project-tags"><span className="tag">React</span><span className="tag">Tailwind</span><span className="tag">External API</span></div>
     </a>
-    <a className="project-card" href="https://github.com/carinotj19/OnlinePortfolio" target="_blank" rel="noreferrer" {...projectHologramHoverProps(4)}>
-      <ProjectIconRow icon="globe" />
-      <div className="project-title">Online Portfolio</div>
-      <div className="project-desc">Previous portfolio iteration — source code open on GitHub for reference and inspiration.</div>
-      <div className="project-tags"><span className="tag">JavaScript</span><span className="tag">HTML/CSS</span></div>
+    <a className="project-card" href="https://github.com/carinotj19/BMart" target="_blank" rel="noreferrer" {...projectHologramHoverProps(4)}>
+      <ProjectIconRow icon="cart" />
+      <div className="project-kicker">05 · MOBILE COMMERCE</div>
+      <div className="project-title">BMart</div>
+      <div className="project-desc">Kotlin Android multi-vendor ordering application with messaging and payment workflows.</div>
+      <div className="project-tags"><span className="tag">Kotlin</span><span className="tag">Android</span><span className="tag">Mobile</span></div>
     </a>
     <a className="project-card" href="https://github.com/carinotj19?tab=repositories" target="_blank" rel="noreferrer" style={{ borderStyle: "dashed" }} {...projectHologramHoverProps(5)}>
       <ProjectIconRow icon="plus" />
+      <div className="project-kicker">OUTPUT BUFFER</div>
       <div className="project-title">More on GitHub</div>
-      <div className="project-desc">30+ public repositories covering experiments, coursework, and side projects.</div>
-      <div className="project-tags"><span className="tag">30+ repos</span></div>
+      <div className="project-desc">Additional experiments, coursework, utilities, and side projects. The portfolio foregrounds the work most relevant to production engineering roles.</div>
+      <div className="project-tags"><span className="tag">Browse repositories</span></div>
     </a>
   </div>
 </section>
@@ -1162,37 +1166,37 @@ export default function App() {
     <div className="skill-group">
       <SkillGroupHead icon="code" duration="8s">Languages</SkillGroupHead>
       <div className="skill-body">
-        <SkillItem icon="code" level={92}>JavaScript (ES6+)</SkillItem>
-        <SkillItem icon="code" level={62}>PHP</SkillItem>
-        <SkillItem icon="code" level={90}>HTML5 &amp; CSS3</SkillItem>
-        <SkillItem icon="database" level={62}>SQL</SkillItem>
+        <SkillItem icon="code">JavaScript / TypeScript</SkillItem>
+        <SkillItem icon="code">Python</SkillItem>
+        <SkillItem icon="code">PHP</SkillItem>
+        <SkillItem icon="code">HTML5 &amp; CSS3</SkillItem>
       </div>
     </div>
     <div className="skill-group skill-group-featured">
       <SkillGroupHead icon="layers" reverse duration="10s">Frameworks</SkillGroupHead>
       <div className="skill-body">
-        <SkillItem icon="layers" level={88}>React</SkillItem>
-        <SkillItem icon="layers" level={62}>Three.js / R3F</SkillItem>
-        <SkillItem icon="layers" level={82}>jQuery</SkillItem>
-        <SkillItem icon="layers" level={64}>Tailwind CSS</SkillItem>
+        <SkillItem icon="layers">React / Vite</SkillItem>
+        <SkillItem icon="layers">Three.js / React Three Fiber</SkillItem>
+        <SkillItem icon="layers">jQuery</SkillItem>
+        <SkillItem icon="layers">Tailwind CSS</SkillItem>
       </div>
     </div>
     <div className="skill-group">
       <SkillGroupHead icon="database" duration="14s">Backend &amp; CMS</SkillGroupHead>
       <div className="skill-body">
-        <SkillItem icon="database" level={64}>Node.js / Express</SkillItem>
-        <SkillItem icon="database" level={74}>Strapi CMS</SkillItem>
-        <SkillItem icon="database" level={94}>WordPress / ACF</SkillItem>
-        <SkillItem icon="database" level={64}>MySQL &amp; Mongo</SkillItem>
+        <SkillItem icon="database">Node.js / Express</SkillItem>
+        <SkillItem icon="database">Python / FastAPI</SkillItem>
+        <SkillItem icon="database">Strapi · WordPress / ACF</SkillItem>
+        <SkillItem icon="database">PostgreSQL · MongoDB · MySQL</SkillItem>
       </div>
     </div>
     <div className="skill-group">
       <SkillGroupHead icon="cloud" reverse duration="7s">DevOps &amp; Cloud</SkillGroupHead>
       <div className="skill-body">
-        <SkillItem icon="github" level={88}>Git &amp; GitHub</SkillItem>
-        <SkillItem icon="tool" level={64}>Docker</SkillItem>
-        <SkillItem icon="cloud" level={44}>AWS S3 &amp; SES</SkillItem>
-        <SkillItem icon="tool" level={44}>CapRover CI/CD</SkillItem>
+        <SkillItem icon="github">Git / GitHub</SkillItem>
+        <SkillItem icon="tool">Docker / CapRover</SkillItem>
+        <SkillItem icon="cloud">AWS S3 / SES</SkillItem>
+        <SkillItem icon="tool">Playwright · Vitest · pytest</SkillItem>
       </div>
     </div>
   </div>
@@ -1214,12 +1218,12 @@ export default function App() {
 </section>
 
 <footer>
-  <span>© 2025 TJ Cariño — Baguio City, Philippines</span>
+  <span>© 2026 TJ Cariño — Baguio City, Philippines</span>
   <span className="footer-status">
     <Icon name="gear" size={12} className="footer-gear" />
     Still spinning
   </span>
 </footer>
-    </>
+    </SmoothScroll>
   );
 }
