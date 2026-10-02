@@ -1,85 +1,56 @@
 import { useEffect } from 'react';
-import Lenis from 'lenis';
-import { gsap, ScrollTrigger } from './motion/gsap';
 import { workshopState } from './workshopState';
-
-function prefersReducedMotion() {
-  return typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-}
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    const reduced = prefersReducedMotion();
+    let lastY = window.scrollY;
+    let lastTime = performance.now();
 
-    const updateWorkshopState = () => {
+    const update = () => {
+      const now = performance.now();
+      const y = window.scrollY;
+      const elapsed = Math.max(16, now - lastTime);
       const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      workshopState.scroll = window.scrollY / max;
+
+      workshopState.scroll = y / max;
+      workshopState.velocity = ((y - lastY) / elapsed) * 16.67;
+
+      lastY = y;
+      lastTime = now;
     };
 
-    if (reduced) {
-      window.addEventListener('scroll', updateWorkshopState, { passive: true });
-      updateWorkshopState();
-      ScrollTrigger.refresh();
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const revealTargets = Array.from(
+      document.querySelectorAll(
+        'section:not(#hero) .section-label, section:not(#hero) .section-title, .about-text > p, .about-stack > *, .exp-item, .project-card, .skill-group, .contact-inner > *'
+      )
+    );
 
-      return () => {
-        window.removeEventListener('scroll', updateWorkshopState);
-      };
+    let observer;
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      revealTargets.forEach((element) => element.classList.add('motion-reveal'));
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('motion-reveal-visible');
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      );
+
+      revealTargets.forEach((element) => observer.observe(element));
     }
 
-    const lenis = new Lenis({
-      lerp: 0.1,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.35,
-      syncTouch: false,
-    });
-
-    const onScroll = ({ velocity }) => {
-      workshopState.velocity = velocity || 0;
-      updateWorkshopState();
-      ScrollTrigger.update();
-    };
-
-    lenis.on('scroll', onScroll);
-
-    const tick = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(tick);
-
-    const ctx = gsap.context(() => {
-      document.querySelectorAll('section:not(#hero)').forEach((section) => {
-        const targets = section.querySelectorAll(
-          '.section-label, .section-title, .about-text > p, .about-stack > *, .exp-item, .project-card, .skill-group, .contact-inner > *'
-        );
-
-        if (!targets.length) return;
-
-        gsap.fromTo(
-          targets,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            stagger: 0.055,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 76%',
-              once: true,
-            },
-          }
-        );
-      });
-    });
-
-    updateWorkshopState();
-    ScrollTrigger.refresh();
+    window.addEventListener('scroll', update, { passive: true });
+    update();
 
     return () => {
-      ctx.revert();
-      gsap.ticker.remove(tick);
-      lenis.off('scroll', onScroll);
-      lenis.destroy();
+      window.removeEventListener('scroll', update);
+      observer?.disconnect();
     };
   }, []);
 
