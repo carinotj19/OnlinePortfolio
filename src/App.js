@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
 import Header from "./components/Header/Header";
+import Experience from "./components/Profile/Experience";
 import Projects from "./components/Projects/Projects";
+import Skills from "./components/Profile/Skills";
 import Certificates from "./components/Certificates/Certificates";
 import Layout from "./components/Layout/Layout";
 import ThemeProvider from "./components/Theme/ThemeProvider";
@@ -10,42 +12,28 @@ import ScrollUp from "./components/Scroll/ScrollUp";
 import DotNav from "./components/Navigation/DotNav";
 
 const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSectionName, prevSectionName, goToPage }) => {
-    // Show scroll down indicator if this isn't the last section
     const showScrollDown = sectionIndex < totalSections - 1;
-    // Show scroll up indicator if this isn't the first section
     const showScrollUp = sectionIndex > 0;
 
-    // Function to handle scroll to next section
     const handleScrollDown = () => {
-        if (goToPage) {
-            goToPage(sectionIndex + 1);
-        }
+        if (goToPage) goToPage(sectionIndex + 1);
     };
 
-    // Function to handle scroll to previous section
     const handleScrollUp = () => {
-        if (goToPage) {
-            goToPage(sectionIndex - 1);
-        }
+        if (goToPage) goToPage(sectionIndex - 1);
     };
 
     return (
-        <div id={id} className={`section ${isActive ? 'active' : ''}`}>
+        <div id={id} className={`section ${isActive ? "active" : ""}`}>
             <div className="section-content">
                 {showScrollUp && isActive && (
-                    <ScrollUp
-                        text={prevSectionName}
-                        onClick={handleScrollUp}
-                    />
+                    <ScrollUp text={prevSectionName} onClick={handleScrollUp} />
                 )}
                 {React.isValidElement(children)
                     ? React.cloneElement(children, { isActive })
                     : children}
                 {showScrollDown && isActive && (
-                    <ScrollDown
-                        text={nextSectionName}
-                        onClick={handleScrollDown}
-                    />
+                    <ScrollDown text={nextSectionName} onClick={handleScrollDown} />
                 )}
             </div>
         </div>
@@ -55,11 +43,12 @@ const Section = ({ id, children, isActive, sectionIndex, totalSections, nextSect
 function App() {
     const [activeSection, setActiveSection] = useState(0);
 
-    // Use useMemo to prevent the sections array from causing unnecessary re-renders
     const sections = useMemo(() => [
-        { id: "home", component: <Header />, name: "Home", title: "Home" },
-        { id: "certificates", component: <Certificates />, name: "Certificates", title: "Certificates" },
-        { id: "projects", component: <Projects />, name: "Projects", title: "Projects" }
+        { id: "home", component: <Header />, name: "Home" },
+        { id: "experience", component: <Experience />, name: "Experience" },
+        { id: "projects", component: <Projects />, name: "Projects" },
+        { id: "skills", component: <Skills />, name: "Skills" },
+        { id: "certificates", component: <Certificates />, name: "Certificates" }
     ], []);
 
     const goToPage = (index) => {
@@ -75,13 +64,10 @@ function App() {
                 onSectionChange={setActiveSection}
                 position="right"
             />
-            <Layout
-                currentPage={activeSection}
-                onPageChange={setActiveSection}
-            >
+            <Layout currentPage={activeSection} onPageChange={setActiveSection}>
                 {sections.map((section, index) => (
                     <Section
-                        key={index}
+                        key={section.id}
                         id={section.id}
                         isActive={index === activeSection}
                         sectionIndex={index}
