@@ -171,6 +171,8 @@ export default function WorkshopScene() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(2.15, 0.45, 7.1);
+    camera.lookAt(1.55, -0.15, 0);
 
     const materials = {
       brass: new THREE.MeshStandardMaterial({ color: COLORS.brass, metalness: 0.62, roughness: 0.38 }),
