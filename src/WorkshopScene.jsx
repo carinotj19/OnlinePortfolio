@@ -295,8 +295,8 @@ export default function WorkshopScene() {
     const render = (now) => {
       const delta = Math.min(0.05, Math.max(0, (now - previous) / 1000));
       previous = now;
-      const time = now / 1000;
-      const scroll = workshopState.scroll;
+      const time = reduced ? 0 : now / 1000;
+      const scroll = reduced ? 0 : workshopState.scroll;
       const velocityBoost = Math.min(2.2, 1 + Math.abs(workshopState.velocity) * 0.025);
 
       if (!reduced) {
@@ -312,11 +312,16 @@ export default function WorkshopScene() {
         slat.position.x = -beltLength / 2 + travel;
       });
 
+      const focusedCrate =
+        workshopState.projectFocus >= 0
+          ? workshopState.projectFocus % belt.userData.crates.length
+          : -1;
+
       belt.userData.crates.forEach((crate, index) => {
         const travel = ((time * 0.34 + crate.userData.offset) % beltLength + beltLength) % beltLength;
         crate.position.x = -beltLength / 2 + travel;
         crate.position.y = 0.28 + (reduced ? 0 : Math.sin(time * 1.8 + index) * 0.025);
-        crate.material.color.setHex(index === workshopState.projectFocus ? COLORS.copper : COLORS.wood);
+        crate.material.color.setHex(index === focusedCrate ? COLORS.copper : COLORS.wood);
       });
 
       const targetRotationY = -0.12 + scroll * 0.28 + (reduced ? 0 : pointer.x * 0.05);
