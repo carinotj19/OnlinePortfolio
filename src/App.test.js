@@ -1,14 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-// Mock components that rely on webpack-specific features or heavy deps
-jest.mock('./components/Projects/Projects', () => () => <div />);
-jest.mock('./components/Certificates/Certificates', () => () => <div />);
-jest.mock('./components/UI/ImageCarousel/ImageCarousel', () => () => <div />);
-import App from './App';
+import React from "react";
+import { render, screen } from "@testing-library/react";
 
-test('renders header text', () => {
+jest.mock("./components/Projects/Projects", () => () => <div />);
+jest.mock("./components/Certificates/Certificates", () => () => <div />);
+jest.mock("./components/Profile/Experience", () => () => <div />);
+jest.mock("./components/Profile/Skills", () => () => <div />);
+
+import App from "./App";
+
+test("renders portfolio positioning", () => {
   render(<App />);
-  // Header contains this phrase in the main H1
-  const heading = screen.getByText(/Software Developer/i);
+  const heading = screen.getByText(/Full-Stack Web Developer/i);
   expect(heading).toBeInTheDocument();
 });
