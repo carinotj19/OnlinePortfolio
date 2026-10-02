@@ -1,5 +1,6 @@
 import React from "react";
-import "./Profile.css";\nimport ProfileSection from "./ProfileSection";
+import "./Profile.css";
+import ProfileSection from "./ProfileSection";
 
 const skillGroups = [
   {
@@ -22,34 +23,32 @@ const skillGroups = [
 
 function Skills() {
   return (
-    <div className="profile-section">
-      <div className="profile-scroll-area">
-        <div className="profile-container">
-          <p className="profile-eyebrow">Skills & Education</p>
-          <h1 className="profile-title">A web stack that spans UI, APIs, data, testing, and delivery.</h1>
+    <ProfileSection>
+      <div className="profile-container">
+        <p className="profile-eyebrow">Skills & Education</p>
+        <h1 className="profile-title">A web stack that spans UI, APIs, data, testing, and delivery.</h1>
 
-          <div className="skills-grid">
-            {skillGroups.map((group) => (
-              <section className="skill-card" key={group.label}>
-                <h2>{group.label}</h2>
-                <div className="skill-tags">
-                  {group.items.map((item) => (
-                    <span className="skill-tag" key={item}>{item}</span>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-
-          <section className="education-card">
-            <p className="profile-eyebrow">Education</p>
-            <h2>B.S. in Computer Science</h2>
-            <p>University of the Cordilleras · Baguio City</p>
-            <p className="education-meta">Graduated Aug 2025</p>
-          </section>
+        <div className="skills-grid">
+          {skillGroups.map((group) => (
+            <section className="skill-card" key={group.label}>
+              <h2>{group.label}</h2>
+              <div className="skill-tags">
+                {group.items.map((item) => (
+                  <span className="skill-tag" key={item}>{item}</span>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
+
+        <section className="education-card">
+          <p className="profile-eyebrow">Education</p>
+          <h2>B.S. in Computer Science</h2>
+          <p>University of the Cordilleras · Baguio City</p>
+          <p className="education-meta">Graduated Aug 2025</p>
+        </section>
       </div>
-    </div>
+    </ProfileSection>
   );
 }
 
