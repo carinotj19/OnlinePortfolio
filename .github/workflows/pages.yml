@@ -2,7 +2,9 @@ name: Build and Deploy GitHub Pages
 
 on:
   push:
-    branches: ["create-style", "create-style-webgl-workshop"]
+    branches: ["create-style"]
+  pull_request:
+    branches: ["create-style"]
   workflow_dispatch:
 
 permissions:
@@ -32,7 +34,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to gh-pages
-        if: github.ref == 'refs/heads/create-style'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/create-style'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
