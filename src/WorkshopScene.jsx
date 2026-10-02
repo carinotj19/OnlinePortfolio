@@ -1,265 +1,357 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { workshopState } from './workshopState';
 
-const BRASS = '#b8860b';
-const BRASS_LIGHT = '#d7ad36';
-const COPPER = '#b85f34';
-const ANDESITE = '#77766f';
-const ANDESITE_DARK = '#444741';
-const BELT = '#25211d';
-const WOOD = '#8c6332';
+const COLORS = {
+  brass: 0xb8860b,
+  brassLight: 0xd6ac34,
+  copper: 0xb85f34,
+  andesite: 0x77766f,
+  andesiteDark: 0x444741,
+  belt: 0x25211d,
+  wood: 0x8c6332,
+};
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
+function createGear(materials, scale = 1) {
+  const group = new THREE.Group();
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReduced(mq.matches);
-    update();
-    mq.addEventListener?.('change', update);
-    return () => mq.removeEventListener?.('change', update);
-  }, []);
-
-  return reduced;
-}
-
-function Gear({ position, scale = 1, reverse = false, speed = 0.7 }) {
-  const ref = useRef();
-  const teeth = useMemo(() => Array.from({ length: 12 }, (_, index) => index), []);
-
-  useFrame((_, delta) => {
-    if (!ref.current) return;
-    const motion = Math.min(2.2, 1 + Math.abs(workshopState.velocity) * 0.025);
-    ref.current.rotation.z += delta * speed * motion * (reverse ? -1 : 1);
-  });
-
-  return (
-    <group ref={ref} position={position} scale={scale}>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.65, 0.65, 0.22, 32]} />
-        <meshStandardMaterial color={BRASS} metalness={0.62} roughness={0.38} />
-      </mesh>
-
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.24, 0.24, 0.3, 16]} />
-        <meshStandardMaterial color={ANDESITE_DARK} metalness={0.72} roughness={0.42} />
-      </mesh>
-
-      {teeth.map((index) => {
-        const angle = (index / teeth.length) * Math.PI * 2;
-        return (
-          <mesh
-            key={index}
-            position={[Math.cos(angle) * 0.76, Math.sin(angle) * 0.76, 0]}
-            rotation={[0, 0, angle]}
-          >
-            <boxGeometry args={[0.28, 0.22, 0.24]} />
-            <meshStandardMaterial color={BRASS_LIGHT} metalness={0.55} roughness={0.42} />
-          </mesh>
-        );
-      })}
-    </group>
+  const body = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.65, 0.65, 0.22, 32),
+    materials.brass
   );
-}
+  body.rotation.x = Math.PI / 2;
+  group.add(body);
 
-function Gearbox({ position, scale = 1 }) {
-  return (
-    <group position={position} scale={scale}>
-      <mesh>
-        <boxGeometry args={[1.35, 1.2, 0.65]} />
-        <meshStandardMaterial color={ANDESITE} metalness={0.38} roughness={0.68} />
-      </mesh>
-      <mesh position={[0, 0, 0.34]}>
-        <boxGeometry args={[1.05, 0.9, 0.08]} />
-        <meshStandardMaterial color={ANDESITE_DARK} metalness={0.45} roughness={0.6} />
-      </mesh>
-      <Gear position={[0, 0, 0.43]} scale={0.48} speed={0.95} />
-    </group>
+  const hub = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.24, 0.24, 0.3, 16),
+    materials.andesiteDark
   );
+  hub.rotation.x = Math.PI / 2;
+  group.add(hub);
+
+  for (let index = 0; index < 12; index += 1) {
+    const angle = (index / 12) * Math.PI * 2;
+    const tooth = new THREE.Mesh(
+      new THREE.BoxGeometry(0.28, 0.22, 0.24),
+      materials.brassLight
+    );
+    tooth.position.set(Math.cos(angle) * 0.76, Math.sin(angle) * 0.76, 0);
+    tooth.rotation.z = angle;
+    group.add(tooth);
+  }
+
+  group.scale.setScalar(scale);
+  group.userData.isGear = true;
+  return group;
 }
 
-function Shaft({ position, length = 2.4, vertical = false }) {
-  return (
-    <mesh position={position} rotation={vertical ? [0, 0, 0] : [0, 0, Math.PI / 2]}>
-      <cylinderGeometry args={[0.09, 0.09, length, 16]} />
-      <meshStandardMaterial color={ANDESITE_DARK} metalness={0.78} roughness={0.32} />
-    </mesh>
+function createGearbox(materials, scale = 1) {
+  const group = new THREE.Group();
+
+  const shell = new THREE.Mesh(
+    new THREE.BoxGeometry(1.35, 1.2, 0.65),
+    materials.andesite
   );
-}
+  group.add(shell);
 
-function Funnel({ position }) {
-  return (
-    <group position={position}>
-      <mesh rotation={[0, Math.PI / 4, 0]}>
-        <cylinderGeometry args={[0.32, 0.62, 0.7, 4, 1, true]} />
-        <meshStandardMaterial color={ANDESITE} metalness={0.45} roughness={0.56} side={THREE.DoubleSide} />
-      </mesh>
-      <mesh position={[0, -0.48, 0]}>
-        <boxGeometry args={[0.28, 0.35, 0.28]} />
-        <meshStandardMaterial color={ANDESITE_DARK} metalness={0.5} roughness={0.52} />
-      </mesh>
-    </group>
+  const face = new THREE.Mesh(
+    new THREE.BoxGeometry(1.05, 0.9, 0.08),
+    materials.andesiteDark
   );
+  face.position.z = 0.36;
+  group.add(face);
+
+  const gear = createGear(materials, 0.48);
+  gear.position.z = 0.47;
+  group.add(gear);
+
+  group.scale.setScalar(scale);
+  return group;
 }
 
-function Belt({ position = [0, 0, 0], length = 4.8, reverse = false }) {
-  const slats = useRef([]);
-  const crates = useRef([]);
-
-  useFrame((state) => {
-    const time = state.clock.elapsedTime;
-    const motion = reverse ? -1 : 1;
-
-    slats.current.forEach((mesh, index) => {
-      if (!mesh) return;
-      const travel = ((time * 0.68 * motion + index * 0.42) % length + length) % length;
-      mesh.position.x = -length / 2 + travel;
-    });
-
-    crates.current.forEach((mesh, index) => {
-      if (!mesh) return;
-      const travel = ((time * 0.34 * motion + index * 1.9) % length + length) % length;
-      mesh.position.x = -length / 2 + travel;
-      mesh.position.y = 0.26 + Math.sin(time * 1.8 + index) * 0.025;
-    });
-  });
-
-  return (
-    <group position={position}>
-      <mesh>
-        <boxGeometry args={[length, 0.18, 0.9]} />
-        <meshStandardMaterial color={BELT} metalness={0.2} roughness={0.82} />
-      </mesh>
-
-      {Array.from({ length: 12 }, (_, index) => (
-        <mesh
-          key={`slat-${index}`}
-          ref={(node) => { slats.current[index] = node; }}
-          position={[-length / 2 + index * 0.42, 0.11, 0]}
-        >
-          <boxGeometry args={[0.06, 0.08, 0.86]} />
-          <meshStandardMaterial color={ANDESITE} metalness={0.38} roughness={0.64} />
-        </mesh>
-      ))}
-
-      {Array.from({ length: 3 }, (_, index) => (
-        <mesh
-          key={`crate-${index}`}
-          ref={(node) => { crates.current[index] = node; }}
-          position={[-length / 2 + index * 1.9, 0.28, 0]}
-        >
-          <boxGeometry args={[0.5, 0.44, 0.5]} />
-          <meshStandardMaterial color={index === workshopState.projectFocus ? COPPER : WOOD} roughness={0.7} />
-        </mesh>
-      ))}
-    </group>
+function createShaft(materials, length = 2.4, vertical = false) {
+  const shaft = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.09, 0.09, length, 16),
+    materials.andesiteDark
   );
+  if (!vertical) shaft.rotation.z = Math.PI / 2;
+  return shaft;
 }
 
-function Machine() {
-  const root = useRef();
-  const { camera, pointer } = useThree();
-  const reduced = useReducedMotion();
-  const focusRef = useRef(-1);
+function createFunnel(materials) {
+  const group = new THREE.Group();
 
-  useEffect(() => {
-    const onFocus = (event) => {
-      const cubeIndex = event.detail?.cubeIndex;
-      focusRef.current = Number.isInteger(cubeIndex) ? cubeIndex : -1;
-      workshopState.projectFocus = focusRef.current;
-    };
+  const cone = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.32, 0.62, 0.7, 4, 1, true),
+    materials.andesite
+  );
+  cone.rotation.y = Math.PI / 4;
+  group.add(cone);
 
-    window.addEventListener('projects-hologram-focus', onFocus);
-    return () => window.removeEventListener('projects-hologram-focus', onFocus);
-  }, []);
+  const neck = new THREE.Mesh(
+    new THREE.BoxGeometry(0.28, 0.35, 0.28),
+    materials.andesiteDark
+  );
+  neck.position.y = -0.48;
+  group.add(neck);
 
-  useFrame((state, delta) => {
-    const scroll = workshopState.scroll;
+  return group;
+}
 
-    if (root.current) {
-      const targetRotation = -0.12 + scroll * 0.28;
-      root.current.rotation.y = THREE.MathUtils.damp(
-        root.current.rotation.y,
-        targetRotation + (reduced ? 0 : pointer.x * 0.05),
-        4,
-        delta
-      );
-      root.current.rotation.x = THREE.MathUtils.damp(
-        root.current.rotation.x,
-        -0.08 + (reduced ? 0 : pointer.y * 0.025),
-        4,
-        delta
-      );
-      root.current.position.y = THREE.MathUtils.damp(root.current.position.y, 0.15 - scroll * 0.7, 3, delta);
+function createBelt(materials, length = 5.1) {
+  const group = new THREE.Group();
+
+  const bed = new THREE.Mesh(
+    new THREE.BoxGeometry(length, 0.18, 0.9),
+    materials.belt
+  );
+  group.add(bed);
+
+  const slats = [];
+  for (let index = 0; index < 12; index += 1) {
+    const slat = new THREE.Mesh(
+      new THREE.BoxGeometry(0.06, 0.08, 0.86),
+      materials.andesite
+    );
+    slat.position.set(-length / 2 + index * 0.42, 0.11, 0);
+    slat.userData.offset = index * 0.42;
+    group.add(slat);
+    slats.push(slat);
+  }
+
+  const crates = [];
+  for (let index = 0; index < 3; index += 1) {
+    const crate = new THREE.Mesh(
+      new THREE.BoxGeometry(0.5, 0.44, 0.5),
+      materials.wood.clone()
+    );
+    crate.position.set(-length / 2 + index * 1.9, 0.28, 0);
+    crate.userData.offset = index * 1.9;
+    group.add(crate);
+    crates.push(crate);
+  }
+
+  group.userData.length = length;
+  group.userData.slats = slats;
+  group.userData.crates = crates;
+  return group;
+}
+
+function disposeObject(root) {
+  root.traverse((object) => {
+    object.geometry?.dispose?.();
+    if (object.material) {
+      const materials = Array.isArray(object.material) ? object.material : [object.material];
+      materials.forEach((material) => material.dispose?.());
     }
-
-    const mobile = state.size.width < 760;
-    const targetX = mobile ? 0.8 : 2.15 - scroll * 0.75;
-    const targetY = mobile ? 0.2 : 0.45 - scroll * 0.35;
-    const targetZ = mobile ? 8.3 : 7.1 - scroll * 0.45;
-
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 4, delta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 4, delta);
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 4, delta);
-    camera.lookAt(mobile ? 0.55 : 1.55, -0.15, 0);
   });
-
-  return (
-    <group ref={root} position={[0.8, 0.15, 0]}>
-      <group position={[0, 1.15, 0]}>
-        <Gearbox position={[-1.55, 0.15, 0]} scale={0.88} />
-        <Shaft position={[-0.6, 0.15, 0]} length={1.8} />
-        <Gear position={[0.35, 0.15, 0.04]} scale={0.72} reverse speed={0.9} />
-        <Shaft position={[1.0, 0.15, 0]} length={1.3} />
-        <Gearbox position={[1.8, 0.15, 0]} scale={0.78} />
-      </group>
-
-      <Belt position={[0.25, -0.55, 0]} length={5.1} />
-      <Gear position={[-2.28, -0.55, 0.12]} scale={0.5} speed={1.15} />
-      <Gear position={[2.78, -0.55, 0.12]} scale={0.5} reverse speed={1.15} />
-
-      <Shaft position={[2.78, 0.1, 0]} length={1.35} vertical />
-      <Funnel position={[-2.18, 0.38, 0]} />
-
-      <mesh position={[0.25, -1.1, 0]}>
-        <boxGeometry args={[5.8, 0.16, 1.25]} />
-        <meshStandardMaterial color={ANDESITE_DARK} metalness={0.45} roughness={0.62} />
-      </mesh>
-
-      <mesh position={[0.25, -1.35, 0]}>
-        <boxGeometry args={[6.2, 0.34, 1.5]} />
-        <meshStandardMaterial color={ANDESITE} metalness={0.28} roughness={0.76} />
-      </mesh>
-    </group>
-  );
-}
-
-function Scene() {
-  return (
-    <>
-      <ambientLight intensity={1.15} />
-      <directionalLight position={[4, 7, 7]} intensity={2.4} color="#fff0c5" />
-      <directionalLight position={[-5, 2, 4]} intensity={1.2} color="#8db3b0" />
-      <pointLight position={[2.5, -1, 3]} intensity={8} distance={10} color={COPPER} />
-      <Machine />
-    </>
-  );
 }
 
 export default function WorkshopScene() {
+  const wrapRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const canvas = canvasRef.current;
+    if (!wrap || !canvas) return undefined;
+
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+
+    const materials = {
+      brass: new THREE.MeshStandardMaterial({ color: COLORS.brass, metalness: 0.62, roughness: 0.38 }),
+      brassLight: new THREE.MeshStandardMaterial({ color: COLORS.brassLight, metalness: 0.54, roughness: 0.42 }),
+      copper: new THREE.MeshStandardMaterial({ color: COLORS.copper, metalness: 0.44, roughness: 0.5 }),
+      andesite: new THREE.MeshStandardMaterial({ color: COLORS.andesite, metalness: 0.36, roughness: 0.66 }),
+      andesiteDark: new THREE.MeshStandardMaterial({ color: COLORS.andesiteDark, metalness: 0.7, roughness: 0.4 }),
+      belt: new THREE.MeshStandardMaterial({ color: COLORS.belt, metalness: 0.18, roughness: 0.84 }),
+      wood: new THREE.MeshStandardMaterial({ color: COLORS.wood, metalness: 0.02, roughness: 0.78 }),
+    };
+
+    scene.add(new THREE.AmbientLight(0xfff1ce, 1.5));
+
+    const key = new THREE.DirectionalLight(0xffe3a3, 3.2);
+    key.position.set(4, 7, 7);
+    scene.add(key);
+
+    const fill = new THREE.DirectionalLight(0x8db3b0, 1.45);
+    fill.position.set(-5, 2, 4);
+    scene.add(fill);
+
+    const copperGlow = new THREE.PointLight(COLORS.copper, 12, 10);
+    copperGlow.position.set(2.5, -1, 3);
+    scene.add(copperGlow);
+
+    const machine = new THREE.Group();
+    machine.position.set(0.8, 0.15, 0);
+    machine.rotation.x = -0.08;
+    scene.add(machine);
+
+    const leftGearbox = createGearbox(materials, 0.88);
+    leftGearbox.position.set(-1.55, 1.3, 0);
+    machine.add(leftGearbox);
+
+    const upperShaft = createShaft(materials, 1.8);
+    upperShaft.position.set(-0.6, 1.3, 0);
+    machine.add(upperShaft);
+
+    const middleGear = createGear(materials, 0.72);
+    middleGear.position.set(0.35, 1.3, 0.04);
+    middleGear.userData.reverse = true;
+    machine.add(middleGear);
+
+    const rightShaft = createShaft(materials, 1.3);
+    rightShaft.position.set(1.0, 1.3, 0);
+    machine.add(rightShaft);
+
+    const rightGearbox = createGearbox(materials, 0.78);
+    rightGearbox.position.set(1.8, 1.3, 0);
+    machine.add(rightGearbox);
+
+    const belt = createBelt(materials);
+    belt.position.set(0.25, -0.55, 0);
+    machine.add(belt);
+
+    const leftBeltGear = createGear(materials, 0.5);
+    leftBeltGear.position.set(-2.28, -0.55, 0.12);
+    machine.add(leftBeltGear);
+
+    const rightBeltGear = createGear(materials, 0.5);
+    rightBeltGear.position.set(2.78, -0.55, 0.12);
+    rightBeltGear.userData.reverse = true;
+    machine.add(rightBeltGear);
+
+    const verticalShaft = createShaft(materials, 1.35, true);
+    verticalShaft.position.set(2.78, 0.1, 0);
+    machine.add(verticalShaft);
+
+    const funnel = createFunnel(materials);
+    funnel.position.set(-2.18, 0.38, 0);
+    machine.add(funnel);
+
+    const upperBase = new THREE.Mesh(
+      new THREE.BoxGeometry(5.8, 0.16, 1.25),
+      materials.andesiteDark
+    );
+    upperBase.position.set(0.25, -1.1, 0);
+    machine.add(upperBase);
+
+    const lowerBase = new THREE.Mesh(
+      new THREE.BoxGeometry(6.2, 0.34, 1.5),
+      materials.andesite
+    );
+    lowerBase.position.set(0.25, -1.35, 0);
+    machine.add(lowerBase);
+
+    const gears = [];
+    machine.traverse((object) => {
+      if (object.userData.isGear) gears.push(object);
+    });
+
+    const pointer = { x: 0, y: 0 };
+    const onPointerMove = (event) => {
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -((event.clientY / window.innerHeight) * 2 - 1);
+    };
+
+    const onProjectFocus = (event) => {
+      const index = event.detail?.cubeIndex;
+      workshopState.projectFocus = Number.isInteger(index) ? index : -1;
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('projects-hologram-focus', onProjectFocus);
+
+    const resize = () => {
+      const rect = wrap.getBoundingClientRect();
+      renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
+      camera.aspect = Math.max(1, rect.width) / Math.max(1, rect.height);
+      camera.updateProjectionMatrix();
+    };
+
+    resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(wrap);
+
+    let frame = 0;
+    let previous = performance.now();
+
+    const render = (now) => {
+      const delta = Math.min(0.05, Math.max(0, (now - previous) / 1000));
+      previous = now;
+      const time = now / 1000;
+      const scroll = workshopState.scroll;
+      const velocityBoost = Math.min(2.2, 1 + Math.abs(workshopState.velocity) * 0.025);
+
+      if (!reduced) {
+        gears.forEach((gear, index) => {
+          const direction = gear.userData.reverse || index % 2 ? -1 : 1;
+          gear.rotation.z += delta * 0.7 * velocityBoost * direction;
+        });
+      }
+
+      const beltLength = belt.userData.length;
+      belt.userData.slats.forEach((slat) => {
+        const travel = ((time * 0.68 + slat.userData.offset) % beltLength + beltLength) % beltLength;
+        slat.position.x = -beltLength / 2 + travel;
+      });
+
+      belt.userData.crates.forEach((crate, index) => {
+        const travel = ((time * 0.34 + crate.userData.offset) % beltLength + beltLength) % beltLength;
+        crate.position.x = -beltLength / 2 + travel;
+        crate.position.y = 0.28 + (reduced ? 0 : Math.sin(time * 1.8 + index) * 0.025);
+        crate.material.color.setHex(index === workshopState.projectFocus ? COLORS.copper : COLORS.wood);
+      });
+
+      const targetRotationY = -0.12 + scroll * 0.28 + (reduced ? 0 : pointer.x * 0.05);
+      const targetRotationX = -0.08 + (reduced ? 0 : pointer.y * 0.025);
+      machine.rotation.y = THREE.MathUtils.damp(machine.rotation.y, targetRotationY, 4, delta);
+      machine.rotation.x = THREE.MathUtils.damp(machine.rotation.x, targetRotationX, 4, delta);
+      machine.position.y = THREE.MathUtils.damp(machine.position.y, 0.15 - scroll * 0.7, 3, delta);
+
+      const mobile = wrap.clientWidth < 760;
+      const targetX = mobile ? 0.8 : 2.15 - scroll * 0.75;
+      const targetY = mobile ? 0.2 : 0.45 - scroll * 0.35;
+      const targetZ = mobile ? 8.3 : 7.1 - scroll * 0.45;
+
+      camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 4, delta);
+      camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 4, delta);
+      camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 4, delta);
+      camera.lookAt(mobile ? 0.55 : 1.55, -0.15, 0);
+
+      renderer.render(scene, camera);
+      frame = requestAnimationFrame(render);
+    };
+
+    frame = requestAnimationFrame(render);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('projects-hologram-focus', onProjectFocus);
+      disposeObject(scene);
+      renderer.dispose();
+    };
+  }, []);
+
   return (
-    <div className="workshop-webgl-layer" aria-hidden="true">
-      <Suspense fallback={null}>
-        <Canvas
-          dpr={[1, 1.75]}
-          gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-          camera={{ fov: 42, near: 0.1, far: 100, position: [2.15, 0.45, 7.1] }}
-        >
-          <Scene />
-        </Canvas>
-      </Suspense>
+    <div className="workshop-webgl-layer" ref={wrapRef} aria-hidden="true">
+      <canvas ref={canvasRef} />
       <div className="workshop-webgl-vignette" />
     </div>
   );
