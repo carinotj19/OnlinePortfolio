@@ -1030,3 +1030,286 @@ footer { border-top: 2px solid var(--border); padding: 1.5rem 3rem; display: fle
   footer { flex-direction: column; gap: 0.4rem; text-align: center; }
   .cog-divider { padding-inline: 1.5rem; }
 }
+
+
+/* CREATE WORKSHOP WEBGL LAYER */
+.workshop-webgl-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.workshop-webgl-layer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.94;
+}
+
+.workshop-webgl-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 96%, transparent) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 34%, transparent 62%),
+    linear-gradient(180deg, transparent 68%, color-mix(in srgb, var(--bg) 78%, transparent) 100%);
+}
+
+.schematic-bg {
+  z-index: 0;
+  opacity: 0.72;
+}
+
+nav,
+section,
+.cog-divider,
+footer {
+  isolation: isolate;
+}
+
+#hero {
+  z-index: 2;
+  background: transparent;
+}
+
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 3rem 2.1rem 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--brass), transparent 45%);
+  opacity: 0.36;
+}
+
+.hero-machine-readout {
+  position: absolute;
+  right: clamp(2rem, 5vw, 5rem);
+  top: clamp(7rem, 16vh, 10rem);
+  width: min(320px, 34vw);
+  padding: 0.95rem 1rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--brass) 46%, transparent);
+  border-left: 3px solid var(--brass);
+  background: color-mix(in srgb, var(--surface) 58%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 35px color-mix(in srgb, var(--shadow) 72%, transparent);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero-machine-readout::before,
+.hero-machine-readout::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--brass) 60%, transparent);
+}
+
+.hero-machine-readout::before { top: 8px; right: 8px; }
+.hero-machine-readout::after { bottom: 8px; right: 8px; opacity: 0.35; }
+
+.hero-machine-readout span,
+.hero-machine-readout strong,
+.hero-machine-readout small {
+  display: block;
+}
+
+.hero-machine-readout span {
+  color: var(--copper);
+  font-size: 9px;
+}
+
+.hero-machine-readout strong {
+  margin-top: 0.35rem;
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.055em;
+}
+
+.hero-machine-readout small {
+  margin-top: 0.45rem;
+  color: var(--text3);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+#about,
+#projects,
+#contact {
+  background: color-mix(in srgb, var(--surface) 91%, transparent);
+  backdrop-filter: blur(9px);
+}
+
+#experience,
+#skills {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 94%, transparent) 0%, color-mix(in srgb, var(--bg) 82%, transparent) 62%, transparent 100%);
+}
+
+.about-plate,
+.parameters-panel,
+.exp-card,
+.skill-group,
+.project-card {
+  position: relative;
+}
+
+.about-plate::after,
+.parameters-panel::after,
+.exp-card::after,
+.skill-group::after,
+.project-card::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid color-mix(in srgb, var(--brass) 72%, var(--border));
+  background: var(--surface2);
+  box-shadow:
+    calc(100% + 0px) 0 0 -1px transparent;
+}
+
+.about-plate::after,
+.parameters-panel::after,
+.exp-card::after,
+.skill-group::after,
+.project-card::after {
+  top: 7px;
+  right: 7px;
+  border-radius: 50%;
+}
+
+.assembly-signal {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  margin-bottom: 1rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border2);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  color: var(--text3);
+  font: 500 9px/1.2 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+.assembly-signal-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--copper) 72%, transparent);
+  animation: workshopPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes workshopPulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.projects-grid {
+  max-width: 1180px;
+}
+
+.project-card {
+  border-radius: 2px;
+  min-height: 260px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--bg) 94%, transparent), color-mix(in srgb, var(--surface2) 88%, transparent));
+}
+
+.project-card-featured {
+  border-color: color-mix(in srgb, var(--brass) 54%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brass) 9%, transparent);
+}
+
+.project-kicker {
+  margin-bottom: 0.5rem;
+  color: var(--copper);
+  font: 600 9px/1.2 'JetBrains Mono', monospace;
+  letter-spacing: 0.11em;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 12px 28px var(--shadow),
+    0 0 0 1px color-mix(in srgb, var(--brass) 20%, transparent);
+}
+
+.skill-item-main {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.72s cubic-bezier(.2,.7,.2,1),
+    transform 0.72s cubic-bezier(.2,.7,.2,1);
+}
+
+.motion-reveal.motion-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .hero-machine-readout {
+    right: 1.5rem;
+    top: 7.5rem;
+    width: min(260px, 37vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .workshop-webgl-layer {
+    opacity: 0.64;
+  }
+
+  .workshop-webgl-vignette {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--bg) 70%, transparent) 0%, transparent 46%, color-mix(in srgb, var(--bg) 82%, transparent) 100%);
+  }
+
+  .hero-machine-readout {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(100%, 360px);
+    margin: 0 0 1.25rem auto;
+  }
+
+  #hero::after {
+    inset-inline: 1.5rem;
+  }
+
+  #experience,
+  #skills {
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter: blur(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .assembly-signal-dot,
+  .nav-gear-sm,
+  .skills-bg-gear,
+  .footer-gear,
+  .cog-icon,
+  .cog-icon-r {
+    animation: none !important;
+  }
+
+  .motion-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
