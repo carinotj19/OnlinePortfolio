@@ -1,84 +1,55 @@
-# TJ's Online Portfolio
+# TJ Cariño — Online Portfolio
 
-A modern, responsive online portfolio showcasing my projects, certificates, and experience as a Software Developer.
+A React portfolio focused on my professional web-development experience and selected full-stack engineering projects.
 
-## Preview
+## Live Site
+
 https://carinotj19.github.io/OnlinePortfolio/
 
-## Features
+## Portfolio Focus
 
-- Full-page scrolling interface
-- Project showcase with image carousel
-- Certificates display
-- Social media links with tooltips
-- Responsive design for all devices
-- Light/Dark theme with system preference + toggle
+- Full-Stack Web Developer positioning
+- Professional experience across frontend delivery, CMS platforms, APIs, and deployment
+- Featured projects selected for engineering depth and relevance
+- Skills grouped across frontend, backend/CMS, databases, testing, and delivery
+- Education and certificates
+- Responsive light/dark interface
 
-## Technologies Used
+## Featured Projects
+
+### CabKit3D
+Parametric 3D cabinet configurator built with React, Vite, React Three Fiber, and Three.js, including real-time pricing/validation and deterministic SKU/BOM/GLB exports.
+
+### Stock Sage
+Inventory intelligence platform using React, TypeScript, FastAPI, PostgreSQL, SQLAlchemy, and Alembic, with forecasting, reorder recommendations, competitor-price scraping, admin authentication, and automated tests.
+
+### ShelterSync
+MERN pet adoption platform with JWT authentication, multi-role workflows, CRUD/search APIs, GridFS uploads, validation, rate limiting, and service-layer backend structure.
+
+## Portfolio Stack
 
 - React 18
-- React Page Scroller for fullpage scrolling
-- Slick JS for image carousels
-- FontAwesome for icons
-- GitHub Pages for deployment
+- React Page Scroller
+- FontAwesome
+- GitHub Pages
+- Jest / Testing Library
+- Light/dark theme support
 
-## Project Structure
+## Local Development
 
-```
-src/
-├── assets/           # Images and static resources
-├── components/       # React components
-│   ├── Header/       # Header section with personal info
-│   ├── Certificates/ # Certificates display
-│   ├── Projects/     # Projects showcase
-│   ├── Layout/       # Layout components
-│   ├── Scroll/       # Scroll indicator
-│   └── UI/           # Reusable UI components
-├── App.js            # Main application component
-└── index.js          # Entry point
-```
+1. Clone the repository.
+2. Run `npm install`.
+3. Run `npm start`.
+4. Open the local React development URL shown in the terminal.
 
-## Setup and Installation
+## Useful Scripts
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/carinotj19/OnlinePortfolio.git
-   cd OnlinePortfolio
-   ```
-
-2. Install dependencies:
-   ```
-   npm install
-   ```
-
-3. Run the development server:
-   ```
-   npm run dev
-   ```
-   or
-   ```
-   npm start
-   ```
-
-4. Open [http://localhost:3000/OnlinePortfolio](http://localhost:3000/OnlinePortfolio) to view it in your browser.
-
-## Available Scripts
-
-- `npm start` or `npm run dev` - Runs the app in development mode
-- `npm run build` - Builds the app for production
-- `npm run deploy` - Deploys the app to GitHub Pages
-- `npm run update-browserslist` - Updates the browserslist database
-- `npm run audit-fix` - Runs npm audit fix to address vulnerabilities
-- `npm run optimize-images` - Converts images to WebP and optimizes originals (requires dev dep `sharp`)
+- `npm start` — development server
+- `npm test` — test suite
+- `npm run build` — production build
+- `npm run deploy` — deploy the build to GitHub Pages
+- `npm run optimize-images` — optimize project/certificate imagery
 
 ## Deployment
 
-This portfolio is configured for deployment to GitHub Pages. To deploy:
-
-```
-npm run deploy
-```
-
-## License
-
-This project is open source and available under the MIT License.
+The portfolio is configured for GitHub Pages. Production updates are deployed with `npm run deploy`.
